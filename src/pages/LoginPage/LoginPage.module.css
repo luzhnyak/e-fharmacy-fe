@@ -1,0 +1,113 @@
+.container {
+  max-width: 375px;
+  padding: 24px 20px 88px 20px;
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: 92px;
+}
+
+.text {
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.21;
+  color: rgb(29, 30, 33);
+  margin-bottom: 40px;
+}
+
+@media only screen and (min-width: 1440px) {
+  .wrap {
+    display: flex;
+    flex-direction: row;
+    gap: 150px;
+    align-items: flex-end;
+  }
+
+  .text {
+    width: 620px;
+    margin-bottom: 0;
+  }
+}
+
+.backgroundContainer {
+  width: 100%;
+  max-width: 375px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.background {
+  margin-left: auto;
+  width: 464px;
+  height: 345px;
+  background-image: url("../../img/elements.png");
+  background-size: 464px 345px;
+  background-repeat: no-repeat;
+  background-position: 117px 0;
+}
+
+@media (min-device-pixel-ratio: 2),
+  (min-resolution: 192dpi),
+  (min-resolution: 2dppx) {
+  .background {
+    background-image: url("../../img/elements2x.png");
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .container {
+    max-width: 768px;
+    padding: 24px 100px 13px 32px;
+  }
+
+  .header {
+    margin-bottom: 100px;
+  }
+
+  .text {
+    font-size: 54px;
+  }
+
+  .backgroundContainer {
+    max-width: 768px;
+  }
+
+  .background {
+    background-position: 198px 0;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .container {
+    max-width: 1440px;
+    padding: 28px 245px 5px 100px;
+  }
+
+  .header {
+    margin-bottom: 122px;
+  }
+
+  .backgroundContainer {
+    max-width: 1440px;
+  }
+}
+
+.logo {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  color: rgb(29, 30, 33);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -3%;
+}
+
+.span {
+  color: rgb(89, 177, 122);
+}
+
+.inlineImage {
+  display: inline;
+}

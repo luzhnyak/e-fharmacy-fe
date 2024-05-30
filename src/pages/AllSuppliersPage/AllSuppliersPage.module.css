@@ -1,0 +1,31 @@
+.container {
+  padding: 100px 20px 20px 20px;
+  max-width: 375px;
+}
+
+@media only screen and (min-width: 768px) {
+  .container {
+    padding: 100px 32px 32px 32px;
+    max-width: 768px;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .container {
+    padding: 100px 40px 40px 118px;
+    max-width: 1440px;
+  }
+}
+
+.wrap {
+  display: block;
+  margin-bottom: 20px;
+}
+
+@media only screen and (min-width: 768px) {
+  .wrap {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0;
+  }
+}

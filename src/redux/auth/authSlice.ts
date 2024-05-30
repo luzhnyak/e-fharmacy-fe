@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 export type User = {
   id: number | null;
@@ -14,16 +14,16 @@ export type AuthState = {
 
 const initialState: AuthState = {
   token: null,
-  isLoggedIn: false,
+  isLoggedIn: true,
   user: {
     id: null,
-    name: "",
-    email: "",
+    name: '',
+    email: '',
   },
 };
 
 const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {
     saveAuthData: (state, action) => {
@@ -31,7 +31,7 @@ const authSlice = createSlice({
       state.isLoggedIn = true;
       state.user = action.payload.user;
     },
-    resetAuthData: (state) => {
+    resetAuthData: state => {
       state.token = null;
       state.isLoggedIn = false;
       state.user = initialState.user;

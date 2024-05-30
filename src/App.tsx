@@ -2,8 +2,8 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { SharedLayout } from './components/SharedLayout/SharedLayout';
 import { lazy, useEffect } from 'react';
 
-import RestrictedRoute from './components/RestrictedRoute';
-import PrivateRoute from './components/PrivateRoute';
+import { RestrictedRoute } from './pages/RestrictedRoute';
+import { PrivateRoute } from './pages/PrivateRoute';
 import LoginPage from './pages/LoginPage/LoginPage';
 import { useDispatch } from 'react-redux';
 // import { refreshUserThunk } from "./redux/auth/operations";
