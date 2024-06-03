@@ -5,6 +5,11 @@ export type User = {
   password: string;
 };
 
+export type LoginUser = {
+  email: string;
+  password: string;
+};
+
 export type Product = {
   id: number;
   photo: string;

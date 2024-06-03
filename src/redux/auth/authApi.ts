@@ -4,7 +4,7 @@ import { baseQueryWithReauth } from '../common/baseQueryWithReauth';
 import { productsApi } from '../products/productsApi';
 
 import { resetAuthData, saveAuthData } from './authSlice';
-import { User } from '../../types';
+import { User, LoginUser } from '../../types';
 
 const apis = {
   productsApi,
@@ -29,7 +29,7 @@ export const authApi = createApi({
         body: credentials,
       }),
     }),
-    login: builder.mutation<User, User>({
+    login: builder.mutation<User, LoginUser>({
       query: credentials => ({
         method: 'POST',
         url: '/api/users/login',

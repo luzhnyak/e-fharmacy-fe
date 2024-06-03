@@ -1,22 +1,22 @@
-import { fetchBaseQuery } from "@reduxjs/toolkit/query";
+import { fetchBaseQuery } from '@reduxjs/toolkit/query';
 import type {
   BaseQueryFn,
   FetchArgs,
   FetchBaseQueryError,
-} from "@reduxjs/toolkit/query";
+} from '@reduxjs/toolkit/query';
 
-const baseUrl = import.meta.env.VITE_BASE_URL || "https://edulab.pp.ua";
+const baseUrl = import.meta.env.VITE_BASE_URL || 'http://localhost:4000';
 const isProd = import.meta.env.PROD;
 
-import { saveAuthData, resetAuthData } from "../auth/authSlice";
-import { RootState } from "../store";
+import { saveAuthData, resetAuthData } from '../auth/authSlice';
+import { RootState } from '../store';
 
 const baseQuery = fetchBaseQuery({
   baseUrl,
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;
     if (token) {
-      headers.set("Authorization", `Bearer ${token}`);
+      headers.set('Authorization', `Bearer ${token}`);
     }
 
     return headers;
@@ -24,7 +24,7 @@ const baseQuery = fetchBaseQuery({
   fetchFn: (input: RequestInfo, init?: RequestInit) => {
     return fetch(input, {
       ...init,
-      credentials: isProd ? "include" : undefined,
+      credentials: isProd ? 'include' : undefined,
     });
   },
 });
@@ -39,16 +39,16 @@ export const baseQueryWithReauth: BaseQueryFn<
     result.error &&
     result.error.status === 401 &&
     (result.error.data as { message?: string }).message ===
-      "Access token has expired"
+      'Access token has expired'
   ) {
     const refreshResult = await baseQuery(
       // для https -------------------
       // { method: 'GET', url: '/api/auth/refresh-user', credentials: 'include' },
       // ------------------------------
       {
-        method: "GET",
-        url: "/api/auth/refresh-user",
-        credentials: isProd ? "include" : undefined,
+        method: 'GET',
+        url: '/api/auth/refresh-user',
+        credentials: isProd ? 'include' : undefined,
       },
       api,
       extraOptions
@@ -64,7 +64,7 @@ export const baseQueryWithReauth: BaseQueryFn<
     result.error &&
     result.error.status === 401 &&
     (result.error.data as { message?: string }).message ===
-      "Authentication failed"
+      'Authentication failed'
   ) {
     api.dispatch(resetAuthData());
   }

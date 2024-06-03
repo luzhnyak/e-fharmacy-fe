@@ -14,7 +14,7 @@ export type AuthState = {
 
 const initialState: AuthState = {
   token: null,
-  isLoggedIn: true,
+  isLoggedIn: false,
   user: {
     id: null,
     name: '',

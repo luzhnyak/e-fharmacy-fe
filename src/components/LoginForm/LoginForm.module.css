@@ -1,0 +1,98 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 40px;
+}
+
+.inputWrap {
+  position: relative;
+}
+
+.icon {
+  position: absolute;
+  right: 18px;
+  top: 13px;
+  cursor: pointer;
+}
+
+.input {
+  box-sizing: border-box;
+  border: 1px solid rgba(29, 30, 33, 0.1);
+  border-radius: 60px;
+  background: rgb(255, 255, 255);
+
+  width: 100%;
+  height: 44px;
+  padding: 13px 18px;
+
+  color: rgb(29, 30, 33);
+  font-family: Inter;
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.input::placeholder {
+  color: rgba(29, 30, 33, 0.4);
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.input:focus {
+  outline: none;
+  border: 1px solid rgb(89, 177, 122);
+}
+
+.errormessage {
+  color: red;
+}
+
+.button {
+  display: block;
+  width: 100%;
+  border-radius: 60px;
+
+  background: rgb(89, 177, 122);
+  color: rgb(255, 255, 255);
+
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.29;
+
+  padding: 13px;
+
+  transition: background-color 0.3s;
+  cursor: pointer;
+  text-align: center;
+}
+
+@media only screen and (min-width: 768px) {
+  .input,
+  .wrap,
+  .button {
+    width: 323px;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .button {
+    margin-bottom: 40px;
+  }
+}
+
+.button:hover {
+  background-color: rgb(63, 148, 95);
+}
+
+.button:disabled {
+  color: rgba(29, 30, 33, 0.4);
+  background-color: rgba(29, 30, 33, 0.1);
+}
+
+.iconeye {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  cursor: pointer;
+}

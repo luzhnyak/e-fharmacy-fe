@@ -1,11 +1,11 @@
-import { Link } from "react-router-dom";
-import LogoImage from "../../img/logo.png";
-import ImagePill375_1x from "../../img/pill_375_@1x.png";
-import ImagePill375_2x from "../../img/pill_375_@2x.png";
-import ImagePill768_1x from "../../img/pill_768_@1x.png";
-import ImagePill768_2x from "../../img/pill_768_@2x.png";
-import css from "./LoginPage.module.css";
-import FormLogin from "../../components/FormLogin/FormLogin";
+import { Link } from 'react-router-dom';
+import LogoImage from '../../img/logo.png';
+import ImagePill375_1x from '../../img/pill_375_@1x.png';
+import ImagePill375_2x from '../../img/pill_375_@2x.png';
+import ImagePill768_1x from '../../img/pill_768_@1x.png';
+import ImagePill768_2x from '../../img/pill_768_@2x.png';
+import css from './LoginPage.module.css';
+import LoginForm from '../../components/LoginForm/LoginForm';
 
 const LoginPage = () => {
   return (
@@ -30,10 +30,10 @@ const LoginPage = () => {
               className={css.inlineImage}
               loading="lazy"
             />
-            delivered Say goodbye to all{" "}
+            delivered Say goodbye to all{' '}
             <span className={css.span}>your healthcare</span> worries with us
           </p>
-          <FormLogin />
+          <LoginForm />
         </div>
       </div>
       <div className={css.backgroundContainer}>
