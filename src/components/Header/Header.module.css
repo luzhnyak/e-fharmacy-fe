@@ -1,0 +1,111 @@
+.header {
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+  background-color: rgb(247, 248, 250);
+  border-bottom: 1px solid rgba(29, 30, 33, 0.1);
+
+  height: 80px;
+  padding: 17px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navigation {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+}
+.wrapText {
+  display: flex;
+  flex-direction: column;
+}
+
+.logoTitle {
+  color: rgb(29, 30, 33);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.subTitle {
+  display: flex;
+  align-items: center;
+}
+
+.pathname {
+  margin-right: 8px;
+  color: rgba(29, 30, 33, 0.4);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.stroke {
+  border: 1px solid rgba(29, 30, 33, 0.4);
+  height: 12px;
+  line-height: 1;
+}
+
+.email {
+  margin-left: 8px;
+  color: rgba(29, 30, 33, 0.4);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+@media only screen and (min-width: 768px) {
+  .header {
+    padding: 15px 32px;
+  }
+
+  .navigation {
+    gap: 32px;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .header {
+    width: 1440px;
+    padding: 15px 40px 15px 20px;
+  }
+
+  .icon {
+    display: none;
+  }
+
+  .iconLogout {
+    cursor: pointer;
+    box-shadow: 0px -1px 7px 0px rgba(71, 71, 71, 0.05);
+    background-color: rgb(89, 177, 122);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+  }
+
+  .iconLogout:hover {
+    background-color: rgb(89, 177, 122);
+  }
+
+  .navigation {
+    gap: 60px;
+  }
+}
+
+@media only screen and (max-width: 1439px) {
+  .iconLogout {
+    display: none;
+  }
+}

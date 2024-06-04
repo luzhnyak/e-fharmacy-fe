@@ -1,0 +1,190 @@
+.table {
+  margin-bottom: 20px;
+  border-collapse: separate; /* Используем separate для корректной работы border-radius */
+  width: 671px;
+  border-spacing: 0;
+  border-radius: 8px;
+  overflow: hidden; /* Обрезаем внутреннее содержимое по радиусам */
+  border: 1px solid rgba(29, 30, 33, 0.08);
+  text-align: left;
+}
+
+@media only screen and (min-width: 768px) {
+  .table {
+    width: 960px;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .table {
+    width: 100%;
+  }
+}
+
+.header {
+  color: rgb(29, 30, 33);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+
+  border-bottom: 1px solid rgba(29, 30, 33, 0.08);
+
+  background: rgb(231, 241, 237);
+  padding: 14px;
+}
+
+.subheader {
+  color: rgba(29, 30, 33, 0.4);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.16;
+
+  background: rgb(255, 255, 255);
+  padding: 14px;
+  border-right: 1px solid rgba(29, 30, 33, 0.08);
+}
+
+.row {
+  padding: 14px 8px 14px 14px;
+
+  color: rgb(29, 30, 33);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.16;
+  background: rgb(255, 255, 255);
+  border-right: 1px solid rgba(29, 30, 33, 0.08);
+  border-top: 1px solid rgba(29, 30, 33, 0.08);
+}
+
+.cellWrap {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 8px;
+}
+
+@media only screen and (min-width: 768px) {
+  .cellWrap {
+    align-items: center;
+    flex-direction: row;
+  }
+
+  .header,
+  .subheader,
+  .row {
+    padding: 20px;
+  }
+
+  .row {
+    font-size: 16px;
+  }
+
+  .subheader {
+    font-size: 14px;
+  }
+
+  .header {
+    font-size: 18px;
+  }
+}
+
+.avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+tr td:last-child,
+tr th:last-child {
+  border-right: none;
+}
+
+.noResults {
+  text-align: center;
+}
+
+.col-info {
+  min-width: 126px;
+}
+
+.col-category {
+  width: 78px;
+}
+
+.col-stock {
+  width: 57px;
+}
+
+@media only screen and (min-width: 768px) {
+  .col-info {
+    min-width: 225px;
+  }
+
+  .col-category {
+    min-width: 158px;
+  }
+
+  .col-stock {
+    min-width: 131px;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .col-info {
+    width: 285px;
+  }
+
+  .col-category {
+    width: 218px;
+  }
+
+  .col-stock {
+    width: 191px;
+  }
+}
+
+.buttonsWrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.buttonEdit {
+  fill: rgb(89, 177, 122);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(89, 177, 122, 0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 250ms ease-in;
+}
+
+.buttonEdit:hover {
+  color: rgb(255, 255, 255);
+  fill: rgb(255, 255, 255);
+  background-color: rgb(89, 177, 122);
+}
+
+.buttonDelete {
+  fill: rgb(232, 80, 80);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(232, 80, 80, 0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 250ms ease-in;
+}
+
+.buttonDelete:hover {
+  color: rgb(255, 255, 255);
+  fill: rgb(255, 255, 255);
+  background-color: rgb(232, 80, 80);
+}

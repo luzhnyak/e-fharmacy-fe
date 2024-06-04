@@ -1,0 +1,63 @@
+.text {
+  color: rgb(29, 30, 33);
+  font-size: 16px;
+  line-height: 1.2;
+  margin-bottom: 40px;
+}
+
+.buttonWrap {
+  display: flex;
+  gap: 8px;
+  flex-direction: row;
+  align-items: center;
+}
+
+.buttonDelete {
+  display: block;
+  width: 100%;
+  border-radius: 60px;
+
+  background: rgb(89, 177, 122);
+  color: rgb(255, 255, 255);
+
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.29;
+
+  padding: 13px;
+
+  transition: background-color 0.3s;
+  cursor: pointer;
+  text-align: center;
+}
+
+.buttonCancel {
+  display: block;
+  width: 100%;
+  border-radius: 60px;
+
+  background: rgba(29, 30, 33, 0.1);
+  color: rgba(29, 30, 33, 0.4);
+
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.29;
+
+  padding: 13px;
+
+  transition: background-color 0.3s;
+  cursor: pointer;
+  text-align: center;
+}
+
+.buttonDelete:hover {
+  background-color: rgb(63, 148, 95);
+}
+
+.buttonCancel:hover {
+  border: 1px solid rgb(89, 177, 122);
+  color: rgb(89, 177, 122);
+  background-color: rgb(255, 255, 255);
+}
