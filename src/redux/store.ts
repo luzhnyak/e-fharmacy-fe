@@ -15,6 +15,7 @@ import { authApi } from './auth/authApi.ts';
 import { authReducer } from './auth/authSlice.ts';
 
 import { productsApi } from './products/productsApi.ts';
+import { customersApi } from './customers/customersApi.ts';
 
 const authPersistConfig = {
   key: 'auth',
@@ -28,6 +29,7 @@ export const store = configureStore({
   reducer: {
     [authApi.reducerPath]: authApi.reducer,
     [productsApi.reducerPath]: productsApi.reducer,
+    [customersApi.reducerPath]: customersApi.reducer,
 
     auth: persistedAuthReducer,
   },
@@ -36,7 +38,11 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(productsApi.middleware, authApi.middleware),
+    }).concat(
+      productsApi.middleware,
+      customersApi.middleware,
+      authApi.middleware
+    ),
 });
 
 export type TypeDispatch = typeof store.dispatch;

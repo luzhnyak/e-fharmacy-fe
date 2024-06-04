@@ -3,10 +3,11 @@ import {
   ColumnDef,
   flexRender,
   useReactTable,
-} from "@tanstack/react-table";
-import css from "./RecentCustomers.module.css";
-import { customers } from "../../../data/customers";
-import { useMemo } from "react";
+} from '@tanstack/react-table';
+import css from './RecentCustomers.module.css';
+import { customers } from '../../../data/customers';
+import { useMemo } from 'react';
+import { useGetCustomersQuery } from '../../../redux/customers/customersApi';
 
 interface Person {
   name: string;
@@ -17,12 +18,12 @@ interface Person {
 
 const columns: ColumnDef<Person>[] = [
   {
-    header: "Recent Customers",
-    footer: (props) => props.column.id,
+    header: 'Recent Customers',
+    footer: props => props.column.id,
     columns: [
       {
-        accessorKey: "name",
-        header: "Name",
+        accessorKey: 'name',
+        header: 'Name',
         cell: ({ row }) => (
           <div className={css.cellWrap}>
             <img
@@ -33,39 +34,41 @@ const columns: ColumnDef<Person>[] = [
             {row.original.name}
           </div>
         ),
-        footer: (props) => props.column.id,
+        footer: props => props.column.id,
       },
       {
-        accessorKey: "email",
-        header: "Email",
-        footer: (props) => props.column.id,
+        accessorKey: 'email',
+        header: 'Email',
+        footer: props => props.column.id,
       },
       {
-        accessorKey: "spent",
-        header: "Spent",
-        footer: (props) => props.column.id,
+        accessorKey: 'spent',
+        header: 'Spent',
+        footer: props => props.column.id,
       },
     ],
   },
 ];
 
 const RecentCustomersTable = () => {
-  const myCustomers = customers.map((customer) => {
+  const { data, isLoading, error } = useGetCustomersQuery();
+
+  const myCustomers = data?.data.map(customer => {
     return {
-      avatar: customer.image || customer.photo,
+      avatar: customer.photo,
       name: customer.name,
       email: customer.email,
       spent: customer.spent,
     };
   });
 
-  const data = useMemo(() => myCustomers, [myCustomers]);
+  const data2 = useMemo(() => myCustomers, [myCustomers]);
 
   const table = useReactTable({
-    data,
+    data2,
     columns,
     enableColumnResizing: true,
-    columnResizeMode: "onChange",
+    columnResizeMode: 'onChange',
     getCoreRowModel: getCoreRowModel(),
     debugTable: true,
     debugHeaders: true,
@@ -80,7 +83,7 @@ const RecentCustomersTable = () => {
             key={headerGroup.id}
             className={index === 0 ? css.header : css.subheader}
           >
-            {headerGroup.headers.map((header) => (
+            {headerGroup.headers.map(header => (
               <th
                 key={header.id}
                 colSpan={header.colSpan}
@@ -99,19 +102,19 @@ const RecentCustomersTable = () => {
         ))}
       </thead>
       <tbody>
-        {table.getRowModel().rows.map((row) => {
+        {table.getRowModel().rows.map(row => {
           return (
             <tr key={row.id}>
-              {row.getVisibleCells().map((cell) => {
+              {row.getVisibleCells().map(cell => {
                 return (
                   <td
                     key={cell.id}
                     className={`${css.row} ${
-                      cell.column.id === "name"
-                        ? css["col-name"]
-                        : cell.column.id === "email"
-                        ? css["col-email"]
-                        : ""
+                      cell.column.id === 'name'
+                        ? css['col-name']
+                        : cell.column.id === 'email'
+                        ? css['col-email']
+                        : ''
                     }`}
                     style={{ width: cell.column.getSize() }}
                   >
