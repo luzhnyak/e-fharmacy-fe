@@ -3,10 +3,11 @@ import {
   ColumnDef,
   flexRender,
   useReactTable,
-} from "@tanstack/react-table";
-import css from "./AllOrdersTable.module.css";
-import { useEffect, useMemo, useState } from "react";
-import { orders } from "../../data/orders";
+} from '@tanstack/react-table';
+import css from './AllOrdersTable.module.css';
+// import { useEffect, useMemo, useState } from 'react';
+
+import { useGetOrdersQuery } from '../../redux/dashboard/ordersApi';
 
 interface Person {
   name: string;
@@ -20,12 +21,12 @@ interface Person {
 
 const columns: ColumnDef<Person>[] = [
   {
-    header: "All orders",
-    footer: (props) => props.column.id,
+    header: 'All orders',
+    footer: props => props.column.id,
     columns: [
       {
-        accessorKey: "name",
-        header: "User Info",
+        accessorKey: 'name',
+        header: 'User Info',
         cell: ({ row }) => (
           <div className={css.cellWrap}>
             <img
@@ -36,54 +37,58 @@ const columns: ColumnDef<Person>[] = [
             {row.original.name}
           </div>
         ),
-        footer: (props) => props.column.id,
+        footer: props => props.column.id,
       },
       {
-        accessorKey: "address",
-        header: "Address",
-        footer: (props) => props.column.id,
+        accessorKey: 'address',
+        header: 'Address',
+        footer: props => props.column.id,
       },
       {
-        accessorKey: "products",
-        header: "Products",
-        footer: (props) => props.column.id,
+        accessorKey: 'products',
+        header: 'Products',
+        footer: props => props.column.id,
       },
       {
-        accessorKey: "order_date",
-        header: "Order date",
-        footer: (props) => props.column.id,
+        accessorKey: 'order_date',
+        header: 'Order date',
+        footer: props => props.column.id,
       },
       {
-        accessorKey: "price",
-        header: "Price",
-        footer: (props) => props.column.id,
+        accessorKey: 'price',
+        header: 'Price',
+        footer: props => props.column.id,
       },
       {
-        accessorKey: "status",
-        header: "Status",
-        footer: (props) => props.column.id,
+        accessorKey: 'status',
+        header: 'Status',
+        footer: props => props.column.id,
       },
     ],
   },
 ];
 
 const AllOrdersTable = ({ searchQuery }: { searchQuery: string }) => {
-  const data = useMemo(() => orders, []);
+  const { data } = useGetOrdersQuery();
 
-  const [filteredData, setFilteredData] = useState(data);
+  console.log(searchQuery);
 
-  useEffect(() => {
-    const lowercasedQuery = searchQuery.toLowerCase();
-    setFilteredData(
-      data.filter((item) => item.name.toLowerCase().includes(lowercasedQuery))
-    );
-  }, [searchQuery, data]);
+  // const [filteredData, setFilteredData] = useState(data);
+
+  // useEffect(() => {
+  //   const lowercasedQuery = searchQuery.toLowerCase();
+  //   setFilteredData(
+  //     data?.data.filter(item =>
+  //       item.name.toLowerCase().includes(lowercasedQuery)
+  //     )
+  //   );
+  // }, [searchQuery, data]);
 
   const table = useReactTable({
-    data: filteredData,
+    data: data?.data || [],
     columns,
     enableColumnResizing: true,
-    columnResizeMode: "onChange",
+    columnResizeMode: 'onChange',
     getCoreRowModel: getCoreRowModel(),
     debugTable: true,
     debugHeaders: true,
@@ -91,12 +96,12 @@ const AllOrdersTable = ({ searchQuery }: { searchQuery: string }) => {
   });
 
   const getClassByStatus = (status: string) => {
-    if (status === "Completed") return css.greenStatus;
-    if (status === "Confirmed") return css.violetStatus;
-    if (status === "Pending") return css.orangeStatus;
-    if (status === "Processing") return css.blueStatus;
-    if (status === "Cancelled") return css.redStatus;
-    if (status === "Shipped") return css.roseStatus;
+    if (status === 'Completed') return css.greenStatus;
+    if (status === 'Confirmed') return css.violetStatus;
+    if (status === 'Pending') return css.orangeStatus;
+    if (status === 'Processing') return css.blueStatus;
+    if (status === 'Cancelled') return css.redStatus;
+    if (status === 'Shipped') return css.roseStatus;
     return css.darkgreenStatus;
   };
 
@@ -109,7 +114,7 @@ const AllOrdersTable = ({ searchQuery }: { searchQuery: string }) => {
               key={headerGroup.id}
               className={index === 0 ? css.header : css.subheader}
             >
-              {headerGroup.headers.map((header) => (
+              {headerGroup.headers.map(header => (
                 <th
                   key={header.id}
                   colSpan={header.colSpan}
@@ -128,25 +133,25 @@ const AllOrdersTable = ({ searchQuery }: { searchQuery: string }) => {
           ))}
         </thead>
         <tbody>
-          {table.getRowModel().rows.map((row) => {
+          {table.getRowModel().rows.map(row => {
             return (
               <tr key={row.id}>
-                {row.getVisibleCells().map((cell) => {
+                {row.getVisibleCells().map(cell => {
                   return (
                     <td
                       key={cell.id}
                       className={`${css.row} ${
-                        cell.column.id === "name"
-                          ? css["col-name"]
-                          : cell.column.id === "address"
-                          ? css["col-address"]
-                          : cell.column.id === "products"
-                          ? css["col-products"]
-                          : ""
+                        cell.column.id === 'name'
+                          ? css['col-name']
+                          : cell.column.id === 'address'
+                          ? css['col-address']
+                          : cell.column.id === 'products'
+                          ? css['col-products']
+                          : ''
                       }`}
                       style={{ width: cell.column.getSize() }}
                     >
-                      {cell.column.id === "status" ? (
+                      {cell.column.id === 'status' ? (
                         <span className={getClassByStatus(row.original.status)}>
                           {row.original.status}
                         </span>
@@ -164,11 +169,11 @@ const AllOrdersTable = ({ searchQuery }: { searchQuery: string }) => {
           })}
         </tbody>
       </table>
-      {filteredData.length === 0 && (
+      {/* {filteredData.length === 0 && (
         <div className={css.noResults}>
           No results found for your search query.
         </div>
-      )}
+      )} */}
     </>
   );
 };

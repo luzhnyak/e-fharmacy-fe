@@ -5,15 +5,14 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import css from './RecentCustomers.module.css';
-import { customers } from '../../../data/customers';
-import { useMemo } from 'react';
-import { useGetCustomersQuery } from '../../../redux/customers/customersApi';
+
+import { useGetCustomersQuery } from '../../../redux/dashboard/customersApi';
 
 interface Person {
   name: string;
   email: string;
   spent: string;
-  avatar: string | undefined;
+  photo: string;
 }
 
 const columns: ColumnDef<Person>[] = [
@@ -27,7 +26,7 @@ const columns: ColumnDef<Person>[] = [
         cell: ({ row }) => (
           <div className={css.cellWrap}>
             <img
-              src={row.original.avatar}
+              src={row.original.photo}
               alt={row.original.name}
               className={css.avatar}
             />
@@ -51,21 +50,10 @@ const columns: ColumnDef<Person>[] = [
 ];
 
 const RecentCustomersTable = () => {
-  const { data, isLoading, error } = useGetCustomersQuery();
-
-  const myCustomers = data?.data.map(customer => {
-    return {
-      avatar: customer.photo,
-      name: customer.name,
-      email: customer.email,
-      spent: customer.spent,
-    };
-  });
-
-  const data2 = useMemo(() => myCustomers, [myCustomers]);
+  const { data } = useGetCustomersQuery();
 
   const table = useReactTable({
-    data2,
+    data: data?.data || [],
     columns,
     enableColumnResizing: true,
     columnResizeMode: 'onChange',

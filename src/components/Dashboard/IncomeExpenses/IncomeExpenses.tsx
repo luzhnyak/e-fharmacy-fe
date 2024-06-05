@@ -3,10 +3,10 @@ import {
   ColumnDef,
   flexRender,
   useReactTable,
-} from "@tanstack/react-table";
-import css from "./IncomeExpenses.module.css";
-import { incomes } from "../../../data/Income-Expenses";
-import { useMemo } from "react";
+} from '@tanstack/react-table';
+import css from './IncomeExpenses.module.css';
+
+import { useGetIncomeExpensesQuery } from '../../../redux/dashboard/incomeExpensesApi';
 
 interface Person {
   type: string;
@@ -16,36 +16,36 @@ interface Person {
 
 const columns: ColumnDef<Person>[] = [
   {
-    header: "Income/Expenses",
-    footer: (props) => props.column.id,
+    header: 'Income/Expenses',
+    footer: props => props.column.id,
     columns: [
       {
-        accessorKey: "type",
-        header: "Today",
-        footer: (props) => props.column.id,
+        accessorKey: 'type',
+        header: 'Today',
+        footer: props => props.column.id,
       },
       {
-        accessorKey: "name",
-        header: "",
-        footer: (props) => props.column.id,
+        accessorKey: 'name',
+        header: '',
+        footer: props => props.column.id,
       },
       {
-        accessorKey: "amount",
-        header: "",
-        footer: (props) => props.column.id,
+        accessorKey: 'amount',
+        header: '',
+        footer: props => props.column.id,
       },
     ],
   },
 ];
 
 const IncomeExpenses = () => {
-  const data = useMemo(() => incomes, []);
+  const { data } = useGetIncomeExpensesQuery();
 
   const table = useReactTable({
-    data,
+    data: data?.data || [],
     columns,
     enableColumnResizing: true,
-    columnResizeMode: "onChange",
+    columnResizeMode: 'onChange',
     getCoreRowModel: getCoreRowModel(),
     debugTable: true,
     debugHeaders: true,
@@ -53,14 +53,14 @@ const IncomeExpenses = () => {
   });
 
   const getClassByType = (type: string) => {
-    if (type === "Expense") return css.expense;
-    if (type === "Income") return css.income;
+    if (type === 'Expense') return css.expense;
+    if (type === 'Income') return css.income;
     return css.error;
   };
 
   const getClassByAmount = (type: string) => {
-    if (type === "Expense") return css.col3Red;
-    if (type === "Income") return css.col3Green;
+    if (type === 'Expense') return css.col3Red;
+    if (type === 'Income') return css.col3Green;
     return css.col3Error;
   };
 
@@ -72,7 +72,7 @@ const IncomeExpenses = () => {
             key={headerGroup.id}
             className={index === 0 ? css.header : css.subheader}
           >
-            {headerGroup.headers.map((header) => (
+            {headerGroup.headers.map(header => (
               <th
                 key={header.id}
                 colSpan={header.colSpan}
@@ -91,21 +91,21 @@ const IncomeExpenses = () => {
         ))}
       </thead>
       <tbody>
-        {table.getRowModel().rows.map((row) => {
+        {table.getRowModel().rows.map(row => {
           return (
             <tr key={row.id}>
-              {row.getVisibleCells().map((cell) => {
+              {row.getVisibleCells().map(cell => {
                 return (
                   <td
                     key={cell.id}
                     className={css.row}
                     style={{ width: cell.column.getSize() }}
                   >
-                    {cell.column.id === "type" ? (
+                    {cell.column.id === 'type' ? (
                       <span className={getClassByType(row.original.type)}>
                         {row.original.type}
                       </span>
-                    ) : cell.column.id === "amount" ? (
+                    ) : cell.column.id === 'amount' ? (
                       <span className={getClassByAmount(row.original.type)}>
                         {row.original.amount}
                       </span>

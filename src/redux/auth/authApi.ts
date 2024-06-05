@@ -22,6 +22,16 @@ export const authApi = createApi({
       }),
       providesTags: (_, __, id) => [{ type: 'Users', id }],
     }),
+    refreshUser: builder.query<{ data: User }, void>({
+      query: () => ({
+        url: `/api/users/refresh`,
+        method: 'GET',
+      }),
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        const { data } = await queryFulfilled;
+        dispatch(saveAuthData(data));
+      },
+    }),
     register: builder.mutation<User, User>({
       query: credentials => ({
         method: 'POST',

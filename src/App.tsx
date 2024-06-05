@@ -5,7 +5,8 @@ import { lazy, useEffect } from 'react';
 import { RestrictedRoute } from './pages/RestrictedRoute';
 import { PrivateRoute } from './pages/PrivateRoute';
 import LoginPage from './pages/LoginPage/LoginPage';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
+import { authApi } from './redux/auth/authApi';
 // import { refreshUserThunk } from "./redux/auth/operations";
 
 const AllProductsPage = lazy(
@@ -21,11 +22,13 @@ const CustomersDataPage = lazy(
 );
 
 function App() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+
+  const [refreshUser] = authApi.useLazyRefreshUserQuery();
 
   useEffect(() => {
-    // dispatch(refreshUserThunk() as any);
-  }, [dispatch]);
+    refreshUser();
+  }, [refreshUser]);
 
   return (
     <>

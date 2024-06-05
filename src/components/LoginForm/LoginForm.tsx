@@ -9,7 +9,7 @@ import { LoginUser } from '../../types';
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [loginUser, { isLoading, error }] = authApi.useLoginMutation();
+  const [loginUser] = authApi.useLoginMutation();
 
   const schema = yup
     .object({

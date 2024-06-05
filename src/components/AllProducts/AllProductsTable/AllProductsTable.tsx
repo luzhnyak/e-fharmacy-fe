@@ -3,14 +3,15 @@ import {
   ColumnDef,
   flexRender,
   useReactTable,
-} from "@tanstack/react-table";
-import css from "./AllProductsTable.module.css";
-import { useEffect, useMemo, useState } from "react";
-import Icon from "../../Icon";
-import Modal from "../../Modal/Modal";
-import EditModal from "../../EditModalProduct/EditModal";
-import DeleteModal from "../../DeleteModal copy/DeleteModal";
-import { products } from "../../../data/products";
+} from '@tanstack/react-table';
+import css from './AllProductsTable.module.css';
+import { useState } from 'react';
+import Icon from '../../Icon';
+import Modal from '../../Modal/Modal';
+import EditModal from '../../EditModalProduct/EditModal';
+import DeleteModal from '../../DeleteModal copy/DeleteModal';
+
+import { useGetProductsQuery } from '../../../redux/products/productsApi';
 
 export interface Products {
   name: string;
@@ -21,39 +22,43 @@ export interface Products {
 }
 
 const AllProductsTable = ({ searchQuery }: { searchQuery: string }) => {
+  const { data } = useGetProductsQuery();
+
+  console.log(searchQuery);
+
   const columns: ColumnDef<Products>[] = [
     {
-      header: "All products",
-      footer: (props) => props.column.id,
+      header: 'All products',
+      footer: props => props.column.id,
       columns: [
         {
-          accessorKey: "name",
-          header: "Product Info",
-          footer: (props) => props.column.id,
+          accessorKey: 'name',
+          header: 'Product Info',
+          footer: props => props.column.id,
         },
         {
-          accessorKey: "category",
-          header: "Category",
-          footer: (props) => props.column.id,
+          accessorKey: 'category',
+          header: 'Category',
+          footer: props => props.column.id,
         },
         {
-          accessorKey: "stock",
-          header: "Stock",
-          footer: (props) => props.column.id,
+          accessorKey: 'stock',
+          header: 'Stock',
+          footer: props => props.column.id,
         },
         {
-          accessorKey: "suppliers",
-          header: "Suppliers",
-          footer: (props) => props.column.id,
+          accessorKey: 'suppliers',
+          header: 'Suppliers',
+          footer: props => props.column.id,
         },
         {
-          accessorKey: "price",
-          header: "Price",
-          footer: (props) => props.column.id,
+          accessorKey: 'price',
+          header: 'Price',
+          footer: props => props.column.id,
         },
         {
-          accessorKey: "action",
-          header: "Action",
+          accessorKey: 'action',
+          header: 'Action',
           cell: ({ row }) => (
             <div className={css.buttonsWrap}>
               <div
@@ -70,15 +75,13 @@ const AllProductsTable = ({ searchQuery }: { searchQuery: string }) => {
               </div>
             </div>
           ),
-          footer: (props) => props.column.id,
+          footer: props => props.column.id,
         },
       ],
     },
   ];
 
-  const data = useMemo(() => products, []);
-
-  const [filteredData, setFilteredData] = useState(data);
+  // const [filteredData, setFilteredData] = useState(data);
   const [editModalData, setEditModalData] = useState<Products | null>(null);
   const [deleteModalData, setDeleteModalData] = useState<Products | null>(null);
 
@@ -98,18 +101,18 @@ const AllProductsTable = ({ searchQuery }: { searchQuery: string }) => {
     setDeleteModalData(null);
   };
 
-  useEffect(() => {
-    const lowercasedQuery = searchQuery.toLowerCase();
-    setFilteredData(
-      data.filter((item) => item.name.toLowerCase().includes(lowercasedQuery))
-    );
-  }, [searchQuery, data]);
+  // useEffect(() => {
+  //   const lowercasedQuery = searchQuery.toLowerCase();
+  //   setFilteredData(
+  //     data.filter(item => item.name.toLowerCase().includes(lowercasedQuery))
+  //   );
+  // }, [searchQuery, data]);
 
   const table = useReactTable({
-    data: filteredData,
+    data: data?.data || [],
     columns,
     enableColumnResizing: true,
-    columnResizeMode: "onChange",
+    columnResizeMode: 'onChange',
     getCoreRowModel: getCoreRowModel(),
     debugTable: true,
     debugHeaders: true,
@@ -125,7 +128,7 @@ const AllProductsTable = ({ searchQuery }: { searchQuery: string }) => {
               key={headerGroup.id}
               className={index === 0 ? css.header : css.subheader}
             >
-              {headerGroup.headers.map((header) => (
+              {headerGroup.headers.map(header => (
                 <th
                   key={header.id}
                   colSpan={header.colSpan}
@@ -144,21 +147,21 @@ const AllProductsTable = ({ searchQuery }: { searchQuery: string }) => {
           ))}
         </thead>
         <tbody>
-          {table.getRowModel().rows.map((row) => {
+          {table.getRowModel().rows.map(row => {
             return (
               <tr key={row.id}>
-                {row.getVisibleCells().map((cell) => {
+                {row.getVisibleCells().map(cell => {
                   return (
                     <td
                       key={cell.id}
                       className={`${css.row} ${
-                        cell.column.id === "name"
-                          ? css["col-info"]
-                          : cell.column.id === "category"
-                          ? css["col-category"]
-                          : cell.column.id === "stock"
-                          ? css["col-stock"]
-                          : ""
+                        cell.column.id === 'name'
+                          ? css['col-info']
+                          : cell.column.id === 'category'
+                          ? css['col-category']
+                          : cell.column.id === 'stock'
+                          ? css['col-stock']
+                          : ''
                       }`}
                       style={{ width: cell.column.getSize() }}
                     >
@@ -174,11 +177,11 @@ const AllProductsTable = ({ searchQuery }: { searchQuery: string }) => {
           })}
         </tbody>
       </table>
-      {filteredData.length === 0 && (
+      {/* {filteredData.length === 0 && (
         <div className={css.noResults}>
           No results found for your search query.
         </div>
-      )}
+      )} */}
 
       {editModalData && (
         <Modal onClose={closeEditModal} title="Edit product">

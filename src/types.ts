@@ -16,8 +16,8 @@ export type Product = {
   name: string;
   suppliers: string;
   stock: string;
-  price?: string;
-  category?: string;
+  price: string;
+  category: string;
 };
 
 export type Supplier = {
@@ -34,7 +34,7 @@ export type Customer = {
   photo: string;
   name: string;
   email: string;
-  spent?: string;
+  spent: string;
   phone: string;
   address: string;
   register_date?: string;
@@ -45,16 +45,16 @@ export type Order = {
   photo: string;
   name: string;
   address: string;
-  products?: string;
-  price?: string;
-  status?: string;
-  order_date?: string;
+  products: string;
+  price: string;
+  status: string;
+  order_date: string;
 };
 
 export type IncomeExpense = {
   id: number;
   name: string;
-  amount?: string;
+  amount: string;
   type: string;
 };
 

@@ -11,11 +11,13 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-import { authApi } from './auth/authApi.ts';
-import { authReducer } from './auth/authSlice.ts';
+import { authApi } from './auth/authApi';
+import { authReducer } from './auth/authSlice';
 
-import { productsApi } from './products/productsApi.ts';
-import { customersApi } from './customers/customersApi.ts';
+import { productsApi } from './products/productsApi';
+import { customersApi } from './dashboard/customersApi';
+import { ordersApi } from './dashboard/ordersApi';
+import { incomeExpensesApi } from './dashboard/incomeExpensesApi';
 
 const authPersistConfig = {
   key: 'auth',
@@ -30,6 +32,8 @@ export const store = configureStore({
     [authApi.reducerPath]: authApi.reducer,
     [productsApi.reducerPath]: productsApi.reducer,
     [customersApi.reducerPath]: customersApi.reducer,
+    [ordersApi.reducerPath]: ordersApi.reducer,
+    [incomeExpensesApi.reducerPath]: incomeExpensesApi.reducer,
 
     auth: persistedAuthReducer,
   },
@@ -41,6 +45,8 @@ export const store = configureStore({
     }).concat(
       productsApi.middleware,
       customersApi.middleware,
+      ordersApi.middleware,
+      incomeExpensesApi.middleware,
       authApi.middleware
     ),
 });
