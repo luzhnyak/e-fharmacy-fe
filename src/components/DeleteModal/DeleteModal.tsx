@@ -1,6 +1,6 @@
-import { FC } from "react";
-import css from "./DeleteModal.module.css";
-import { Products } from "../AllProducts/AllProductsTable/AllProductsTable";
+import { FC } from 'react';
+import css from './DeleteModal.module.css';
+import { Products } from '../Products/AllProductsTable/AllProductsTable';
 
 interface DeleteModalProps {
   data: Products;

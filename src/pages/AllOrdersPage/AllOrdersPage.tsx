@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import css from './AllOrdersPage.module.css';
 import FilterForm from '../../components/FilterForm/FilterForm';
-import AllOrdersTable from '../../components/AllOrders/AllOrdersTable';
+import AllOrdersTable from '../../components/Orders/AllOrdersTable';
 
 const AllOrdersPage = () => {
   const [searchQuery, setSearchQuery] = useState('');

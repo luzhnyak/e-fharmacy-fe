@@ -7,7 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import Icon from '../Icon';
 import Dropdown from '../DropdownStatus/Dropdown';
-import { Suppliers } from '../AllSuppliers/AllSuppliersTable/AllSuppliersTable';
+import { Suppliers } from '../Suppliers/AllSuppliersTable/AllSuppliersTable';
 import useCloseDropdown from '../../services/closeDropdown';
 import css from './EditModal.module.css';
 

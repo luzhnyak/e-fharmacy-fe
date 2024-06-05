@@ -16,6 +16,7 @@ import { authReducer } from './auth/authSlice';
 
 import { productsApi } from './products/productsApi';
 import { customersApi } from './dashboard/customersApi';
+import { suppliersApi } from './dashboard/suppliersApi';
 import { ordersApi } from './dashboard/ordersApi';
 import { incomeExpensesApi } from './dashboard/incomeExpensesApi';
 
@@ -32,6 +33,7 @@ export const store = configureStore({
     [authApi.reducerPath]: authApi.reducer,
     [productsApi.reducerPath]: productsApi.reducer,
     [customersApi.reducerPath]: customersApi.reducer,
+    [suppliersApi.reducerPath]: suppliersApi.reducer,
     [ordersApi.reducerPath]: ordersApi.reducer,
     [incomeExpensesApi.reducerPath]: incomeExpensesApi.reducer,
 
@@ -45,6 +47,7 @@ export const store = configureStore({
     }).concat(
       productsApi.middleware,
       customersApi.middleware,
+      suppliersApi.middleware,
       ordersApi.middleware,
       incomeExpensesApi.middleware,
       authApi.middleware

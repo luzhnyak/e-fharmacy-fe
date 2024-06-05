@@ -24,9 +24,10 @@ export type Supplier = {
   id: number;
   name: string;
   address: string;
+  suppliers: string;
   date: string;
-  amount?: string;
-  status?: string;
+  amount: string;
+  status: string;
 };
 
 export type Customer = {
@@ -37,7 +38,7 @@ export type Customer = {
   spent: string;
   phone: string;
   address: string;
-  register_date?: string;
+  register_date: string;
 };
 
 export type Order = {

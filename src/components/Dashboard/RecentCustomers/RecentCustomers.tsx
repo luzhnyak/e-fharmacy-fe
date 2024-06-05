@@ -53,7 +53,7 @@ const RecentCustomersTable = () => {
   const { data } = useGetCustomersQuery();
 
   const table = useReactTable({
-    data: data?.data || [],
+    data: data?.data.slice(0, 5) || [],
     columns,
     enableColumnResizing: true,
     columnResizeMode: 'onChange',

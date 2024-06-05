@@ -3,92 +3,97 @@ import {
   ColumnDef,
   flexRender,
   useReactTable,
-} from "@tanstack/react-table";
-import css from "./AllCustomersTable.module.css";
-import { useEffect, useMemo, useState } from "react";
-import { customers } from "../../data/customers";
+} from '@tanstack/react-table';
+import css from './AllCustomersTable.module.css';
+// import { useEffect, useMemo, useState } from 'react';
+
+import { useGetCustomersQuery } from '../../redux/dashboard/customersApi';
 
 export interface Person {
-  avatar: string | undefined;
   name: string;
   email: string;
   address: string;
   phone: string;
-  date: string;
+  register_date: string;
+  photo: string;
 }
 
 const AllCustomersTable = ({ searchQuery }: { searchQuery: string }) => {
+  const { data } = useGetCustomersQuery();
+
+  console.log(searchQuery);
+
   const columns: ColumnDef<Person>[] = [
     {
-      header: "Customers Data",
-      footer: (props) => props.column.id,
+      header: 'Customers Data',
+      footer: props => props.column.id,
       columns: [
         {
-          accessorKey: "name",
-          header: "Name",
+          accessorKey: 'name',
+          header: 'Name',
           cell: ({ row }) => (
             <div className={css.cellWrap}>
               <img
-                src={row.original.avatar}
+                src={row.original.photo}
                 alt={row.original.name}
                 className={css.avatar}
               />
               {row.original.name}
             </div>
           ),
-          footer: (props) => props.column.id,
+          footer: props => props.column.id,
         },
         {
-          accessorKey: "email",
-          header: "Email",
-          footer: (props) => props.column.id,
+          accessorKey: 'email',
+          header: 'Email',
+          footer: props => props.column.id,
         },
         {
-          accessorKey: "address",
-          header: "Address",
-          footer: (props) => props.column.id,
+          accessorKey: 'address',
+          header: 'Address',
+          footer: props => props.column.id,
         },
         {
-          accessorKey: "phone",
-          header: "Phone",
-          footer: (props) => props.column.id,
+          accessorKey: 'phone',
+          header: 'Phone',
+          footer: props => props.column.id,
         },
         {
-          accessorKey: "date",
-          header: "Register date",
-          footer: (props) => props.column.id,
+          accessorKey: 'register_date',
+          header: 'Register date',
+          footer: props => props.column.id,
         },
       ],
     },
   ];
 
-  const myCustomers = customers.map((customer) => {
-    return {
-      avatar: customer.image || customer.photo,
-      name: customer.name,
-      email: customer.email,
-      address: customer.address,
-      phone: customer.phone,
-      date: customer.register_date,
-    };
-  });
+  // const myCustomers = customers.map(customer => {
+  //   return {
+  //     avatar: customer.image || customer.photo,
+  //     name: customer.name,
+  //     email: customer.email,
+  //     address: customer.address,
+  //     phone: customer.phone,
+  //     date: customer.register_date,
+  //   };
+  // });
 
-  const data = useMemo(() => myCustomers, [myCustomers]);
+  // const data = useMemo(() => myCustomers, [myCustomers]);
 
-  const [filteredData, setFilteredData] = useState(data);
+  // const [filteredData, setFilteredData] = useState(data);
 
-  useEffect(() => {
-    const lowercasedQuery = searchQuery.toLowerCase();
-    setFilteredData(
-      data.filter((item) => item.name.toLowerCase().includes(lowercasedQuery))
-    );
-  }, [searchQuery, data]);
+  // useEffect(() => {
+  //   const lowercasedQuery = searchQuery.toLowerCase();
+  //   setFilteredData(
+  //     data.filter(item => item.name.toLowerCase().includes(lowercasedQuery))
+  //   );
+  // }, [searchQuery, data]);
 
   const table = useReactTable({
-    data: filteredData,
+    data: data?.data || [],
     columns,
     enableColumnResizing: true,
-    columnResizeMode: "onChange",
+    columnResizeMode: 'onChange',
     getCoreRowModel: getCoreRowModel(),
     debugTable: true,
     debugHeaders: true,
@@ -104,7 +109,7 @@ const AllCustomersTable = ({ searchQuery }: { searchQuery: string }) => {
               key={headerGroup.id}
               className={index === 0 ? css.header : css.subheader}
             >
-              {headerGroup.headers.map((header) => (
+              {headerGroup.headers.map(header => (
                 <th
                   key={header.id}
                   colSpan={header.colSpan}
@@ -123,25 +128,25 @@ const AllCustomersTable = ({ searchQuery }: { searchQuery: string }) => {
           ))}
         </thead>
         <tbody>
-          {table.getRowModel().rows.map((row) => {
+          {table.getRowModel().rows.map(row => {
             return (
               <tr key={row.id}>
-                {row.getVisibleCells().map((cell) => {
+                {row.getVisibleCells().map(cell => {
                   return (
                     <td
                       key={cell.id}
                       className={`${css.row} ${
-                        cell.column.id === "name"
-                          ? css["col-name"]
-                          : cell.column.id === "email"
-                          ? css["col-email"]
-                          : cell.column.id === "address"
-                          ? css["col-address"]
-                          : cell.column.id === "phone"
-                          ? css["col-phone"]
-                          : cell.column.id === "date"
-                          ? css["col-date"]
-                          : ""
+                        cell.column.id === 'name'
+                          ? css['col-name']
+                          : cell.column.id === 'email'
+                          ? css['col-email']
+                          : cell.column.id === 'address'
+                          ? css['col-address']
+                          : cell.column.id === 'phone'
+                          ? css['col-phone']
+                          : cell.column.id === 'date'
+                          ? css['col-date']
+                          : ''
                       }`}
                       style={{ width: cell.column.getSize() }}
                     >
@@ -157,11 +162,11 @@ const AllCustomersTable = ({ searchQuery }: { searchQuery: string }) => {
           })}
         </tbody>
       </table>
-      {filteredData.length === 0 && (
+      {/* {filteredData.length === 0 && (
         <div className={css.noResults}>
           No results found for your search query.
         </div>
-      )}
+      )} */}
     </>
   );
 };

@@ -1,11 +1,15 @@
-import React from "react";
-import Icon from "../../Icon";
-import css from "./Statistics.module.css";
-import { products } from "../../../data/products";
-import { suppliers } from "../../../data/suppliers";
-import { customers } from "../../../data/customers";
+import Icon from '../../Icon';
+import css from './Statistics.module.css';
+
+import { useGetProductsQuery } from '../../../redux/products/productsApi';
+import { useGetSuppliersQuery } from '../../../redux/dashboard/suppliersApi';
+import { useGetCustomersQuery } from '../../../redux/dashboard/customersApi';
 
 const Statistics = () => {
+  const { data: products } = useGetProductsQuery();
+  const { data: suppliers } = useGetSuppliersQuery();
+  const { data: customers } = useGetCustomersQuery();
+
   return (
     <div className={css.cells}>
       <div className={css.border}>
@@ -13,7 +17,7 @@ const Statistics = () => {
           <Icon name="coins" />
           <p className={css.text}>All products</p>
         </div>
-        <p className={css.number}>{products.length}</p>
+        <p className={css.number}>{products?.data.length || 0}</p>
       </div>
 
       <div className={css.border}>
@@ -21,7 +25,7 @@ const Statistics = () => {
           <Icon name="customers" />
           <p className={css.text}>All suppliers</p>
         </div>
-        <p className={css.number}>{suppliers.length}</p>
+        <p className={css.number}>{suppliers?.data.length || 0}</p>
       </div>
 
       <div className={css.border}>
@@ -29,7 +33,7 @@ const Statistics = () => {
           <Icon name="customers" />
           <p className={css.text}>All customers</p>
         </div>
-        <p className={css.number}>{customers.length}</p>
+        <p className={css.number}>{customers?.data.length || 0}</p>
       </div>
     </div>
   );

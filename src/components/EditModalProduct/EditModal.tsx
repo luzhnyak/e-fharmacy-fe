@@ -1,11 +1,11 @@
-import { FC, useEffect, useRef, useState } from "react";
-import css from "./EditModal.module.css";
-import { Products } from "../AllProducts/AllProductsTable/AllProductsTable";
-import { Controller, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import Icon from "../Icon";
-import Dropdown from "../Dropdown/Dropdown";
+import { FC, useEffect, useRef, useState } from 'react';
+import css from './EditModal.module.css';
+import { Products } from '../Products/AllProductsTable/AllProductsTable';
+import { Controller, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import Icon from '../Icon';
+import Dropdown from '../Dropdown/Dropdown';
 
 interface EditModalProps {
   data: Products;
@@ -28,13 +28,13 @@ const EditModal: FC<EditModalProps> = ({ data, onClose }) => {
 
   const schema = yup
     .object({
-      name: yup.string().required("Product info is required"),
-      category: yup.string().required("Category is required"),
-      suppliers: yup.string().required("Suppliers is required"),
-      stock: yup.string().required("Stock is required"),
+      name: yup.string().required('Product info is required'),
+      category: yup.string().required('Category is required'),
+      suppliers: yup.string().required('Suppliers is required'),
+      stock: yup.string().required('Stock is required'),
       price: yup
         .string()
-        .typeError("Price is required and must be a number")
+        .typeError('Price is required and must be a number')
         .required(),
     })
     .required();
@@ -68,7 +68,7 @@ const EditModal: FC<EditModalProps> = ({ data, onClose }) => {
   };
 
   useEffect(() => {
-    setValue("category", selectedFilter);
+    setValue('category', selectedFilter);
   }, [selectedFilter, setValue]);
 
   return (
@@ -77,7 +77,7 @@ const EditModal: FC<EditModalProps> = ({ data, onClose }) => {
         <div className={css.wrap}>
           <div>
             <input
-              {...register("name")}
+              {...register('name')}
               className={css.input}
               placeholder="Product info"
             />
@@ -94,7 +94,7 @@ const EditModal: FC<EditModalProps> = ({ data, onClose }) => {
                   className={css.input}
                   placeholder="Category"
                   value={selectedFilter}
-                  onChange={(e) => setSelectedFilter(e.target.value)}
+                  onChange={e => setSelectedFilter(e.target.value)}
                 />
               )}
             />
@@ -118,7 +118,7 @@ const EditModal: FC<EditModalProps> = ({ data, onClose }) => {
 
           <div>
             <input
-              {...register("suppliers")}
+              {...register('suppliers')}
               className={css.input}
               placeholder="Suppliers"
             />
@@ -127,7 +127,7 @@ const EditModal: FC<EditModalProps> = ({ data, onClose }) => {
 
           <div>
             <input
-              {...register("stock")}
+              {...register('stock')}
               className={css.input}
               placeholder="Stock"
             />
@@ -143,8 +143,8 @@ const EditModal: FC<EditModalProps> = ({ data, onClose }) => {
                   {...field}
                   className={css.input}
                   placeholder="Price"
-                  onChange={(e) => {
-                    const value = e.target.value.replace(",", ".");
+                  onChange={e => {
+                    const value = e.target.value.replace(',', '.');
                     field.onChange(value);
                   }}
                 />

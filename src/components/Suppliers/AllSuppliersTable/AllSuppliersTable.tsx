@@ -4,75 +4,73 @@ import {
   flexRender,
   useReactTable,
 } from '@tanstack/react-table';
-import css from './AllProductsTable.module.css';
+import css from './AllSuppliersTable.module.css';
 import { useState } from 'react';
 import Icon from '../../Icon';
 import Modal from '../../Modal/Modal';
-import EditModal from '../../EditModalProduct/EditModal';
-import DeleteModal from '../../DeleteModal copy/DeleteModal';
+import EditModal from '../../EditModaSupplier/EditModal';
 
-import { useGetProductsQuery } from '../../../redux/products/productsApi';
+import { useGetSuppliersQuery } from '../../../redux/dashboard/suppliersApi';
 
-export interface Products {
+export interface Suppliers {
   name: string;
-  category: string;
-  stock: string;
+  address: string;
   suppliers: string;
-  price: string;
+  date: string;
+  amount: string;
+  status: string;
 }
 
-const AllProductsTable = ({ searchQuery }: { searchQuery: string }) => {
-  const { data } = useGetProductsQuery();
+const AllSuppliersTable = ({ searchQuery }: { searchQuery: string }) => {
+  const { data } = useGetSuppliersQuery();
 
   console.log(searchQuery);
 
-  const columns: ColumnDef<Products>[] = [
+  const columns: ColumnDef<Suppliers>[] = [
     {
-      header: 'All products',
+      header: 'All suppliers',
       footer: props => props.column.id,
       columns: [
         {
           accessorKey: 'name',
-          header: 'Product Info',
+          header: 'Suppliers Info',
           footer: props => props.column.id,
         },
         {
-          accessorKey: 'category',
-          header: 'Category',
-          footer: props => props.column.id,
-        },
-        {
-          accessorKey: 'stock',
-          header: 'Stock',
+          accessorKey: 'address',
+          header: 'Address',
           footer: props => props.column.id,
         },
         {
           accessorKey: 'suppliers',
-          header: 'Suppliers',
+          header: 'Company',
           footer: props => props.column.id,
         },
         {
-          accessorKey: 'price',
-          header: 'Price',
+          accessorKey: 'date',
+          header: 'Delivery date',
+          footer: props => props.column.id,
+        },
+        {
+          accessorKey: 'amount',
+          header: 'Amount',
+          footer: props => props.column.id,
+        },
+        {
+          accessorKey: 'status',
+          header: 'Status',
           footer: props => props.column.id,
         },
         {
           accessorKey: 'action',
           header: 'Action',
           cell: ({ row }) => (
-            <div className={css.buttonsWrap}>
-              <div
-                className={css.buttonEdit}
-                onClick={() => openEditModal(row.original)}
-              >
-                <Icon name="edit" width={13} height={13} />
-              </div>
-              <div
-                className={css.buttonDelete}
-                onClick={() => openDeleteModal(row.original)}
-              >
-                <Icon name="delete" width={13} height={13} />
-              </div>
+            <div
+              className={css.buttonEdit}
+              onClick={() => openEditModal(row.original)}
+            >
+              <Icon name="edit" width={13} height={13} />
+              Edit
             </div>
           ),
           footer: props => props.column.id,
@@ -81,24 +79,17 @@ const AllProductsTable = ({ searchQuery }: { searchQuery: string }) => {
     },
   ];
 
+  // const data = useMemo(() => suppliers, []);
+
   // const [filteredData, setFilteredData] = useState(data);
-  const [editModalData, setEditModalData] = useState<Products | null>(null);
-  const [deleteModalData, setDeleteModalData] = useState<Products | null>(null);
+  const [editModalData, setEditModalData] = useState<Suppliers | null>(null);
 
-  const openEditModal = (rowData: Products) => {
+  const openEditModal = (rowData: Suppliers) => {
     setEditModalData(rowData);
-  };
-
-  const openDeleteModal = (rowData: Products) => {
-    setDeleteModalData(rowData);
   };
 
   const closeEditModal = () => {
     setEditModalData(null);
-  };
-
-  const closeDeleteModal = () => {
-    setDeleteModalData(null);
   };
 
   // useEffect(() => {
@@ -118,6 +109,11 @@ const AllProductsTable = ({ searchQuery }: { searchQuery: string }) => {
     debugHeaders: true,
     debugColumns: true,
   });
+
+  const getClassByStatus = (status: string) => {
+    if (status === 'Active') return css.greenStatus;
+    return css.redStatus;
+  };
 
   return (
     <>
@@ -155,7 +151,7 @@ const AllProductsTable = ({ searchQuery }: { searchQuery: string }) => {
                     <td
                       key={cell.id}
                       className={`${css.row} ${
-                        cell.column.id === 'name'
+                        cell.column.id === 'info'
                           ? css['col-info']
                           : cell.column.id === 'category'
                           ? css['col-category']
@@ -165,9 +161,15 @@ const AllProductsTable = ({ searchQuery }: { searchQuery: string }) => {
                       }`}
                       style={{ width: cell.column.getSize() }}
                     >
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
+                      {cell.column.id === 'status' ? (
+                        <span className={getClassByStatus(row.original.status)}>
+                          {row.original.status}
+                        </span>
+                      ) : (
+                        flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )
                       )}
                     </td>
                   );
@@ -184,17 +186,12 @@ const AllProductsTable = ({ searchQuery }: { searchQuery: string }) => {
       )} */}
 
       {editModalData && (
-        <Modal onClose={closeEditModal} title="Edit product">
+        <Modal onClose={closeEditModal} title="Edit supplier">
           <EditModal onClose={closeEditModal} data={editModalData} />
-        </Modal>
-      )}
-      {deleteModalData && (
-        <Modal onClose={closeDeleteModal} title="Delete Product">
-          <DeleteModal onClose={closeDeleteModal} data={deleteModalData} />
         </Modal>
       )}
     </>
   );
 };
 
-export default AllProductsTable;
+export default AllSuppliersTable;
