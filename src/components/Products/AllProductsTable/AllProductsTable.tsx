@@ -5,7 +5,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import css from './AllProductsTable.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Icon from '../../Icon';
 import Modal from '../../Modal/Modal';
 import EditModal from '../../EditModalProduct/EditModal';
@@ -23,8 +23,6 @@ export interface Products {
 
 const AllProductsTable = ({ searchQuery }: { searchQuery: string }) => {
   const { data } = useGetProductsQuery();
-
-  console.log(searchQuery);
 
   const columns: ColumnDef<Products>[] = [
     {
@@ -81,7 +79,8 @@ const AllProductsTable = ({ searchQuery }: { searchQuery: string }) => {
     },
   ];
 
-  // const [filteredData, setFilteredData] = useState(data);
+  const [filteredData, setFilteredData] = useState(data?.data || []);
+
   const [editModalData, setEditModalData] = useState<Products | null>(null);
   const [deleteModalData, setDeleteModalData] = useState<Products | null>(null);
 
@@ -101,15 +100,19 @@ const AllProductsTable = ({ searchQuery }: { searchQuery: string }) => {
     setDeleteModalData(null);
   };
 
-  // useEffect(() => {
-  //   const lowercasedQuery = searchQuery.toLowerCase();
-  //   setFilteredData(
-  //     data.filter(item => item.name.toLowerCase().includes(lowercasedQuery))
-  //   );
-  // }, [searchQuery, data]);
+  useEffect(() => {
+    if (!(data && data.data)) return;
+
+    const lowercasedQuery = searchQuery.toLowerCase();
+    setFilteredData(
+      data.data.filter(item =>
+        item.name.toLowerCase().includes(lowercasedQuery)
+      ) || []
+    );
+  }, [searchQuery, data]);
 
   const table = useReactTable({
-    data: data?.data || [],
+    data: filteredData || [],
     columns,
     enableColumnResizing: true,
     columnResizeMode: 'onChange',
@@ -177,11 +180,11 @@ const AllProductsTable = ({ searchQuery }: { searchQuery: string }) => {
           })}
         </tbody>
       </table>
-      {/* {filteredData.length === 0 && (
+      {filteredData.length === 0 && (
         <div className={css.noResults}>
           No results found for your search query.
         </div>
-      )} */}
+      )}
 
       {editModalData && (
         <Modal onClose={closeEditModal} title="Edit product">

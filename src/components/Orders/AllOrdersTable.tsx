@@ -5,7 +5,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import css from './AllOrdersTable.module.css';
-// import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useGetOrdersQuery } from '../../redux/dashboard/ordersApi';
 
@@ -71,21 +71,21 @@ const columns: ColumnDef<Person>[] = [
 const AllOrdersTable = ({ searchQuery }: { searchQuery: string }) => {
   const { data } = useGetOrdersQuery();
 
-  console.log(searchQuery);
+  const [filteredData, setFilteredData] = useState(data?.data || []);
 
-  // const [filteredData, setFilteredData] = useState(data);
+  useEffect(() => {
+    if (!(data && data.data)) return;
 
-  // useEffect(() => {
-  //   const lowercasedQuery = searchQuery.toLowerCase();
-  //   setFilteredData(
-  //     data?.data.filter(item =>
-  //       item.name.toLowerCase().includes(lowercasedQuery)
-  //     )
-  //   );
-  // }, [searchQuery, data]);
+    const lowercasedQuery = searchQuery.toLowerCase();
+    setFilteredData(
+      data.data.filter(item =>
+        item.name.toLowerCase().includes(lowercasedQuery)
+      ) || []
+    );
+  }, [searchQuery, data]);
 
   const table = useReactTable({
-    data: data?.data || [],
+    data: filteredData || [],
     columns,
     enableColumnResizing: true,
     columnResizeMode: 'onChange',
@@ -169,11 +169,11 @@ const AllOrdersTable = ({ searchQuery }: { searchQuery: string }) => {
           })}
         </tbody>
       </table>
-      {/* {filteredData.length === 0 && (
+      {filteredData.length === 0 && (
         <div className={css.noResults}>
           No results found for your search query.
         </div>
-      )} */}
+      )}
     </>
   );
 };

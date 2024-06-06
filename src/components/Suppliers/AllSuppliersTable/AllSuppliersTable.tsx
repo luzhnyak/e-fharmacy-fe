@@ -5,7 +5,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import css from './AllSuppliersTable.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Icon from '../../Icon';
 import Modal from '../../Modal/Modal';
 import EditModal from '../../EditModaSupplier/EditModal';
@@ -23,8 +23,6 @@ export interface Suppliers {
 
 const AllSuppliersTable = ({ searchQuery }: { searchQuery: string }) => {
   const { data } = useGetSuppliersQuery();
-
-  console.log(searchQuery);
 
   const columns: ColumnDef<Suppliers>[] = [
     {
@@ -79,9 +77,6 @@ const AllSuppliersTable = ({ searchQuery }: { searchQuery: string }) => {
     },
   ];
 
-  // const data = useMemo(() => suppliers, []);
-
-  // const [filteredData, setFilteredData] = useState(data);
   const [editModalData, setEditModalData] = useState<Suppliers | null>(null);
 
   const openEditModal = (rowData: Suppliers) => {
@@ -92,15 +87,21 @@ const AllSuppliersTable = ({ searchQuery }: { searchQuery: string }) => {
     setEditModalData(null);
   };
 
-  // useEffect(() => {
-  //   const lowercasedQuery = searchQuery.toLowerCase();
-  //   setFilteredData(
-  //     data.filter(item => item.name.toLowerCase().includes(lowercasedQuery))
-  //   );
-  // }, [searchQuery, data]);
+  const [filteredData, setFilteredData] = useState(data?.data || []);
+
+  useEffect(() => {
+    if (!(data && data.data)) return;
+
+    const lowercasedQuery = searchQuery.toLowerCase();
+    setFilteredData(
+      data.data.filter(item =>
+        item.name.toLowerCase().includes(lowercasedQuery)
+      ) || []
+    );
+  }, [searchQuery, data]);
 
   const table = useReactTable({
-    data: data?.data || [],
+    data: filteredData || [],
     columns,
     enableColumnResizing: true,
     columnResizeMode: 'onChange',
@@ -179,11 +180,11 @@ const AllSuppliersTable = ({ searchQuery }: { searchQuery: string }) => {
           })}
         </tbody>
       </table>
-      {/* {filteredData.length === 0 && (
+      {filteredData.length === 0 && (
         <div className={css.noResults}>
           No results found for your search query.
         </div>
-      )} */}
+      )}
 
       {editModalData && (
         <Modal onClose={closeEditModal} title="Edit supplier">

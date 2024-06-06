@@ -5,7 +5,8 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import css from './AllCustomersTable.module.css';
-// import { useEffect, useMemo, useState } from 'react';
+
+import { useEffect, useState } from 'react';
 
 import { useGetCustomersQuery } from '../../redux/dashboard/customersApi';
 
@@ -20,8 +21,6 @@ export interface Person {
 
 const AllCustomersTable = ({ searchQuery }: { searchQuery: string }) => {
   const { data } = useGetCustomersQuery();
-
-  console.log(searchQuery);
 
   const columns: ColumnDef<Person>[] = [
     {
@@ -67,30 +66,21 @@ const AllCustomersTable = ({ searchQuery }: { searchQuery: string }) => {
     },
   ];
 
-  // const myCustomers = customers.map(customer => {
-  //   return {
-  //     avatar: customer.image || customer.photo,
-  //     name: customer.name,
-  //     email: customer.email,
-  //     address: customer.address,
-  //     phone: customer.phone,
-  //     date: customer.register_date,
-  //   };
-  // });
+  const [filteredData, setFilteredData] = useState(data?.data || []);
 
-  // const data = useMemo(() => myCustomers, [myCustomers]);
+  useEffect(() => {
+    if (!(data && data.data)) return;
 
-  // const [filteredData, setFilteredData] = useState(data);
-
-  // useEffect(() => {
-  //   const lowercasedQuery = searchQuery.toLowerCase();
-  //   setFilteredData(
-  //     data.filter(item => item.name.toLowerCase().includes(lowercasedQuery))
-  //   );
-  // }, [searchQuery, data]);
+    const lowercasedQuery = searchQuery.toLowerCase();
+    setFilteredData(
+      data.data.filter(item =>
+        item.name.toLowerCase().includes(lowercasedQuery)
+      ) || []
+    );
+  }, [searchQuery, data]);
 
   const table = useReactTable({
-    data: data?.data || [],
+    data: filteredData || [],
     columns,
     enableColumnResizing: true,
     columnResizeMode: 'onChange',
@@ -162,11 +152,11 @@ const AllCustomersTable = ({ searchQuery }: { searchQuery: string }) => {
           })}
         </tbody>
       </table>
-      {/* {filteredData.length === 0 && (
+      {filteredData.length === 0 && (
         <div className={css.noResults}>
           No results found for your search query.
         </div>
-      )} */}
+      )}
     </>
   );
 };
