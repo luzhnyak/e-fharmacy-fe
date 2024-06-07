@@ -11,9 +11,13 @@ import Modal from '../../Modal/Modal';
 import EditModal from '../../EditModalProduct/EditModal';
 import DeleteModal from '../../DeleteModal/DeleteModal';
 
-import { useGetProductsQuery } from '../../../redux/products/productsApi';
+import {
+  useDeleteProductMutation,
+  useGetProductsQuery,
+} from '../../../redux/products/productsApi';
 
 export interface Products {
+  id: number;
   name: string;
   category: string;
   stock: string;
@@ -83,6 +87,8 @@ const AllProductsTable = ({ searchQuery }: { searchQuery: string }) => {
 
   const [editModalData, setEditModalData] = useState<Products | null>(null);
   const [deleteModalData, setDeleteModalData] = useState<Products | null>(null);
+
+  const [deleteProduct] = useDeleteProductMutation();
 
   const openEditModal = (rowData: Products) => {
     setEditModalData(rowData);
@@ -193,7 +199,11 @@ const AllProductsTable = ({ searchQuery }: { searchQuery: string }) => {
       )}
       {deleteModalData && (
         <Modal onClose={closeDeleteModal} title="Delete Product">
-          <DeleteModal onClose={closeDeleteModal} data={deleteModalData} />
+          <DeleteModal
+            onClose={closeDeleteModal}
+            onDelete={() => deleteProduct(deleteModalData.id)}
+            data={deleteModalData}
+          />
         </Modal>
       )}
     </>

@@ -5,10 +5,12 @@ import { Products } from '../Products/AllProductsTable/AllProductsTable';
 interface DeleteModalProps {
   data: Products;
   onClose: () => void;
+  onDelete: () => void;
 }
 
-const DeleteModal: FC<DeleteModalProps> = ({ data, onClose }) => {
+const DeleteModal: FC<DeleteModalProps> = ({ data, onClose, onDelete }) => {
   const handleDelete = () => {
+    onDelete();
     onClose();
   };
 

@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { ApiResponse, Product } from '../../types';
+import { ApiResponse, CreateProduct, Product } from '../../types';
 
 import { baseQueryWithReauth } from '../common/baseQueryWithReauth';
 
@@ -16,7 +16,7 @@ export const productsApi = createApi({
       query: id => `/api/products/${id}`,
       providesTags: ['Product'],
     }),
-    createProduct: builder.mutation<ApiResponse<Product>, Product>({
+    createProduct: builder.mutation<ApiResponse<Product>, CreateProduct>({
       query: data => {
         return {
           url: '/api/products',
@@ -42,7 +42,7 @@ export const productsApi = createApi({
     deleteProduct: builder.mutation<ApiResponse<Product>, number>({
       query: id => {
         return {
-          url: `/api/tests/${id}`,
+          url: `/api/products/${id}`,
           method: 'DELETE',
         };
       },

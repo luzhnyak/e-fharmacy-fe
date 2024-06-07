@@ -20,6 +20,14 @@ export type Product = {
   category: string;
 };
 
+export type CreateProduct = {
+  name: string;
+  suppliers: string;
+  stock: string;
+  price: number;
+  category: string;
+};
+
 export type Supplier = {
   id: number;
   name: string;

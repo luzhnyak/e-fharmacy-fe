@@ -1,15 +1,15 @@
-import { Outlet } from "react-router-dom";
-import { Suspense, useState } from "react";
-import { ToastContainer } from "react-toastify";
+import { Outlet } from 'react-router-dom';
+import { Suspense, useState } from 'react';
+import { ToastContainer } from 'react-toastify';
 
-import Header from "../Header/Header";
-import Loader from "../Loader/Loader";
+import Header from '../Header/Header';
+import Loader from '../Loader/Loader';
 
-import "react-toastify/dist/ReactToastify.css";
-import ScrollToTopButton from "../ScrollToTopButton/ScrollToTopButton";
-import Sidebar from "../Sidebar/Sidebar";
+import 'react-toastify/dist/ReactToastify.css';
+import ScrollToTopButton from '../ScrollToTopButton/ScrollToTopButton';
+import Sidebar from '../Sidebar/Sidebar';
 
-import css from "./SharedLayout.module.css";
+import css from './SharedLayout.module.css';
 
 export const SharedLayout = () => {
   const [isOpenMenu, setOpenMenu] = useState(false);

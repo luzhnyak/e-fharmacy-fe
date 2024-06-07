@@ -1,17 +1,18 @@
-import { FC, useEffect, useRef, useState } from "react";
-import css from "./AddNewProductModal.module.css";
-import Icon from "../../Icon";
-import { Controller, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import Dropdown from "../../Dropdown/Dropdown";
+import { FC, useEffect, useRef, useState } from 'react';
+import css from './AddNewProductModal.module.css';
+import Icon from '../../Icon';
+import { Controller, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import Dropdown from '../../Dropdown/Dropdown';
+import { useCreateProductMutation } from '../../../redux/products/productsApi';
 
 interface AddModalProps {
   onClose: () => void;
 }
 
 interface IForms {
-  productInfo: string;
+  name: string;
   category: string;
   suppliers: string;
   stock: string;
@@ -20,19 +21,20 @@ interface IForms {
 
 const AddNewProductModal: FC<AddModalProps> = ({ onClose }) => {
   const [isOpenDropdown, setOpenDropdown] = useState(false);
-  const [selectedFilter, setSelectedFilter] = useState("");
+  const [selectedFilter, setSelectedFilter] = useState('');
+  const [createProduct] = useCreateProductMutation();
 
   const iconref = useRef<HTMLDivElement | null>(null);
 
   const schema = yup
     .object({
-      productInfo: yup.string().required("Product info is required"),
-      category: yup.string().required("Category is required"),
-      suppliers: yup.string().required("Suppliers is required"),
-      stock: yup.string().required("Stock is required"),
+      name: yup.string().required('Product info is required'),
+      category: yup.string().required('Category is required'),
+      suppliers: yup.string().required('Suppliers is required'),
+      stock: yup.string().required('Stock is required'),
       price: yup
         .number()
-        .typeError("Price is required and must be a number")
+        .typeError('Price is required and must be a number')
         .required(),
     })
     .required();
@@ -49,8 +51,10 @@ const AddNewProductModal: FC<AddModalProps> = ({ onClose }) => {
   });
 
   const onSubmit = (data: IForms) => {
+    createProduct(data);
     console.log(data);
     reset();
+    onClose();
   };
 
   const handleSelect = (selected: string) => {
@@ -59,7 +63,7 @@ const AddNewProductModal: FC<AddModalProps> = ({ onClose }) => {
   };
 
   useEffect(() => {
-    setValue("category", selectedFilter);
+    setValue('category', selectedFilter);
   }, [selectedFilter, setValue]);
 
   return (
@@ -68,11 +72,11 @@ const AddNewProductModal: FC<AddModalProps> = ({ onClose }) => {
         <div className={css.wrap}>
           <div>
             <input
-              {...register("productInfo")}
+              {...register('name')}
               className={css.input}
               placeholder="Product info"
             />
-            <p className={css.errormessage}>{errors.productInfo?.message}</p>
+            <p className={css.errormessage}>{errors.name?.message}</p>
           </div>
 
           <div className={css.inputWrap}>
@@ -108,7 +112,7 @@ const AddNewProductModal: FC<AddModalProps> = ({ onClose }) => {
 
           <div>
             <input
-              {...register("suppliers")}
+              {...register('suppliers')}
               className={css.input}
               placeholder="Suppliers"
             />
@@ -117,7 +121,7 @@ const AddNewProductModal: FC<AddModalProps> = ({ onClose }) => {
 
           <div>
             <input
-              {...register("stock")}
+              {...register('stock')}
               className={css.input}
               placeholder="Stock"
             />
@@ -126,7 +130,7 @@ const AddNewProductModal: FC<AddModalProps> = ({ onClose }) => {
 
           <div>
             <input
-              {...register("price")}
+              {...register('price')}
               className={css.input}
               placeholder="Price"
               type="number"
