@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import css from './CustomersDataPage.module.css';
 import FilterForm from '../../components/FilterForm/FilterForm';
 import AllCustomersTable from '../../components/Customers/AllCustomersTable';

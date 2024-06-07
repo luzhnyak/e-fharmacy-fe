@@ -1,5 +1,4 @@
-import React from "react";
-import { ThreeDots } from "react-loader-spinner";
+import { ThreeDots } from 'react-loader-spinner';
 
 const Loader = () => {
   return (
@@ -11,9 +10,9 @@ const Loader = () => {
       radius="10"
       ariaLabel="three-dots-loading"
       wrapperStyle={{
-        left: "50%",
-        top: "50%",
-        position: "absolute",
+        left: '50%',
+        top: '50%',
+        position: 'absolute',
       }}
       wrapperClass="modal-wrapper"
     />

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import css from "./ScrollToTopButton.module.css";
-import Icon from "../Icon";
+import { useState, useEffect } from 'react';
+import css from './ScrollToTopButton.module.css';
+import Icon from '../Icon';
 
 const ScrollToTopButton = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -8,7 +8,7 @@ const ScrollToTopButton = () => {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
+      behavior: 'smooth',
     });
   };
 
@@ -21,15 +21,15 @@ const ScrollToTopButton = () => {
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
   return (
     <div
-      className={`${css.scroll} ${isVisible ? css.visible : ""}`}
+      className={`${css.scroll} ${isVisible ? css.visible : ''}`}
       onClick={scrollToTop}
     >
       <Icon name="chevron-up" />

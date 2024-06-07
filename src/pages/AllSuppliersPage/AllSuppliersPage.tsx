@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import css from './AllSuppliersPage.module.css';
 import FilterForm from '../../components/FilterForm/FilterForm';
 import AddNewSupplier from '../../components/Suppliers/AddNewSupplier/AddNewSupplier';
