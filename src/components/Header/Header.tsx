@@ -4,12 +4,15 @@ import LogoAuthImage from '../../img/logoAuth.png';
 import Icon from '../Icon';
 import { FC } from 'react';
 import { authApi } from '../../redux/auth/authApi';
+import { authSelectors } from '../../redux/auth/authSelectors';
+import { useSelector } from 'react-redux';
 
 interface IProps {
   onOpen: (value: boolean) => void;
 }
 
 const Header: FC<IProps> = ({ onOpen }) => {
+  const user = useSelector(authSelectors.getUser);
   const [logout] = authApi.useLazyLogoutQuery();
 
   const handleLogOut = () => {
@@ -41,8 +44,8 @@ const Header: FC<IProps> = ({ onOpen }) => {
               {formattedPathname}
             </Link>
             <span className={css.stroke}></span>
-            <p className={css.email}>vendor@gmail.com</p>
-            {/* <p className={css.email}>{currentUser.email}</p> */}
+            {/* <p className={css.email}>vendor@gmail.com</p> */}
+            <p className={css.email}>{user?.email}</p>
           </div>
         </div>
       </nav>

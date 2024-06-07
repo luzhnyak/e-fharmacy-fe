@@ -1,11 +1,12 @@
 import { FC, useEffect, useRef, useState } from 'react';
 import css from './EditModal.module.css';
-import { Products } from '../Products/AllProductsTable/AllProductsTable';
+import { Products } from '../AllProductsTable/AllProductsTable';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import Icon from '../Icon';
-import Dropdown from '../Dropdown/Dropdown';
+import Icon from '../../Icon';
+import Dropdown from '../../Dropdown/Dropdown';
+import { useUpdateProductMutation } from '../../../redux/productsApi';
 
 interface EditModalProps {
   data: Products;
@@ -17,12 +18,14 @@ interface IForms {
   category: string;
   suppliers: string;
   stock: string;
-  price: string;
+  price: number;
 }
 
 const EditModal: FC<EditModalProps> = ({ data, onClose }) => {
   const [isOpenDropdown, setOpenDropdown] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState(data.category);
+  const [updateProduct] = useUpdateProductMutation();
+  const id = data.id;
 
   const iconref = useRef<HTMLDivElement | null>(null);
 
@@ -33,7 +36,7 @@ const EditModal: FC<EditModalProps> = ({ data, onClose }) => {
       suppliers: yup.string().required('Suppliers is required'),
       stock: yup.string().required('Stock is required'),
       price: yup
-        .string()
+        .number()
         .typeError('Price is required and must be a number')
         .required(),
     })
@@ -52,11 +55,12 @@ const EditModal: FC<EditModalProps> = ({ data, onClose }) => {
       category: data.category,
       suppliers: data.suppliers,
       stock: data.stock,
-      price: data.price,
+      price: +data.price,
     },
   });
 
   const onSubmit = (data: IForms) => {
+    updateProduct({ id, data });
     console.log(data);
 
     onClose();
@@ -156,7 +160,7 @@ const EditModal: FC<EditModalProps> = ({ data, onClose }) => {
 
         <div className={css.buttonWrap}>
           <button type="submit" className={css.buttonAdd}>
-            Add
+            Edit
           </button>
 
           <button type="button" className={css.buttonCancel} onClick={onClose}>

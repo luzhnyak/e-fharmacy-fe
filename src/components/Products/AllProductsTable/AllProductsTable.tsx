@@ -8,7 +8,7 @@ import css from './AllProductsTable.module.css';
 import { useEffect, useState } from 'react';
 import Icon from '../../Icon';
 import Modal from '../../Modal/Modal';
-import EditModal from '../../EditModalProduct/EditModal';
+import EditModal from '../EditModalProduct/EditModal';
 import DeleteModal from '../../DeleteModal/DeleteModal';
 
 import {

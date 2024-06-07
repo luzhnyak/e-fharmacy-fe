@@ -28,7 +28,7 @@ export const productsApi = createApi({
     }),
     updateProduct: builder.mutation<
       ApiResponse<Product>,
-      { id: number; data: Product }
+      { id: number; data: CreateProduct }
     >({
       query: ({ id, data }) => {
         return {
