@@ -3,20 +3,12 @@ import css from './Header.module.css';
 import LogoAuthImage from '../../img/logoAuth.png';
 import Icon from '../Icon';
 import { FC } from 'react';
-import { useDispatch } from 'react-redux';
-// import { logOutThunk } from "../../redux/auth/operations";
-// import { useSelector } from "react-redux";
-// import { selectCurrentUser } from "../../redux/auth/selectors";
 
 interface IProps {
   onOpen: (value: boolean) => void;
 }
 
 const Header: FC<IProps> = ({ onOpen }) => {
-  // const currentUser = useSelector(selectCurrentUser);
-
-  const dispatch = useDispatch();
-
   const handleLogOut = () => {
     // dispatch(logOutThunk() as any);
   };
