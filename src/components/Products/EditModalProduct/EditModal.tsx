@@ -61,7 +61,6 @@ const EditModal: FC<EditModalProps> = ({ data, onClose }) => {
 
   const onSubmit = (data: IForms) => {
     updateProduct({ id, data });
-    console.log(data);
 
     onClose();
   };

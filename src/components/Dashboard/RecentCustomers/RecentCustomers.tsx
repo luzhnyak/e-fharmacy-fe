@@ -7,6 +7,7 @@ import {
 import css from './RecentCustomers.module.css';
 
 import { useGetCustomersQuery } from '../../../redux/customersApi';
+import Loader from '../../Loader/Loader';
 
 interface Person {
   name: string;
@@ -50,7 +51,7 @@ const columns: ColumnDef<Person>[] = [
 ];
 
 const RecentCustomersTable = () => {
-  const { data } = useGetCustomersQuery();
+  const { data, isLoading } = useGetCustomersQuery();
 
   const table = useReactTable({
     data: data?.data.slice(0, 5) || [],
@@ -64,57 +65,63 @@ const RecentCustomersTable = () => {
   });
 
   return (
-    <table className={css.table}>
-      <thead>
-        {table.getHeaderGroups().map((headerGroup, index) => (
-          <tr
-            key={headerGroup.id}
-            className={index === 0 ? css.header : css.subheader}
-          >
-            {headerGroup.headers.map(header => (
-              <th
-                key={header.id}
-                colSpan={header.colSpan}
-                className={index === 0 ? css.header : css.subheader}
-                style={{ width: header.getSize() }}
-              >
-                {header.isPlaceholder
-                  ? null
-                  : flexRender(
-                      header.column.columnDef.header,
-                      header.getContext()
-                    )}
-              </th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody>
-        {table.getRowModel().rows.map(row => {
-          return (
-            <tr key={row.id}>
-              {row.getVisibleCells().map(cell => {
-                return (
-                  <td
-                    key={cell.id}
-                    className={`${css.row} ${
-                      cell.column.id === 'name'
-                        ? css['col-name']
-                        : cell.column.id === 'email'
-                        ? css['col-email']
-                        : ''
-                    }`}
-                    style={{ width: cell.column.getSize() }}
-                  >
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
-                );
-              })}
+    <>
+      <table className={css.table}>
+        <thead>
+          {table.getHeaderGroups().map((headerGroup, index) => (
+            <tr
+              key={headerGroup.id}
+              className={index === 0 ? css.header : css.subheader}
+            >
+              {headerGroup.headers.map(header => (
+                <th
+                  key={header.id}
+                  colSpan={header.colSpan}
+                  className={index === 0 ? css.header : css.subheader}
+                  style={{ width: header.getSize() }}
+                >
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                </th>
+              ))}
             </tr>
-          );
-        })}
-      </tbody>
-    </table>
+          ))}
+        </thead>
+        <tbody>
+          {table.getRowModel().rows.map(row => {
+            return (
+              <tr key={row.id}>
+                {row.getVisibleCells().map(cell => {
+                  return (
+                    <td
+                      key={cell.id}
+                      className={`${css.row} ${
+                        cell.column.id === 'name'
+                          ? css['col-name']
+                          : cell.column.id === 'email'
+                          ? css['col-email']
+                          : ''
+                      }`}
+                      style={{ width: cell.column.getSize() }}
+                    >
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </td>
+                  );
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+      {isLoading && <Loader />}
+    </>
   );
 };
 

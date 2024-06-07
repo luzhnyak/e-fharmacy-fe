@@ -5,11 +5,12 @@ import Calendar from 'react-calendar';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import Icon from '../Icon';
-import Dropdown from '../DropdownStatus/Dropdown';
-import { Suppliers } from '../Suppliers/AllSuppliersTable/AllSuppliersTable';
-import useCloseDropdown from '../../services/closeDropdown';
+import Icon from '../../Icon';
+import Dropdown from '../../DropdownStatus/Dropdown';
+import { Suppliers } from '../AllSuppliersTable/AllSuppliersTable';
+import useCloseDropdown from '../../../services/closeDropdown';
 import css from './EditModal.module.css';
+import { useUpdateSupplierMutation } from '../../../redux/suppliersApi';
 
 interface EditModalProps {
   data: Suppliers;
@@ -33,6 +34,9 @@ const EditModal: FC<EditModalProps> = ({ data, onClose }) => {
   const [isOpenDropdown, setOpenDropdown] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState(data.status);
   const [isOpenCalendar, setOpenCalendar] = useState(false);
+  const [updateSupplier] = useUpdateSupplierMutation();
+
+  const id = data.id;
 
   const dateString = data.date;
   const date = new Date(dateString);
@@ -86,7 +90,7 @@ const EditModal: FC<EditModalProps> = ({ data, onClose }) => {
   });
 
   const onSubmit = (data: IForms) => {
-    console.log(data);
+    updateSupplier({ id, data });
 
     onClose();
   };

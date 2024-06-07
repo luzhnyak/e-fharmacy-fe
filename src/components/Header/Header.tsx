@@ -44,7 +44,6 @@ const Header: FC<IProps> = ({ onOpen }) => {
               {formattedPathname}
             </Link>
             <span className={css.stroke}></span>
-            {/* <p className={css.email}>vendor@gmail.com</p> */}
             <p className={css.email}>{user?.email}</p>
           </div>
         </div>

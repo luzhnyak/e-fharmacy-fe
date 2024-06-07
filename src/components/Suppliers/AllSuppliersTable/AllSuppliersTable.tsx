@@ -8,11 +8,12 @@ import css from './AllSuppliersTable.module.css';
 import { useEffect, useState } from 'react';
 import Icon from '../../Icon';
 import Modal from '../../Modal/Modal';
-import EditModal from '../../EditModaSupplier/EditModal';
+import EditModal from '../EditModaSupplier/EditModal';
 
 import { useGetSuppliersQuery } from '../../../redux/suppliersApi';
 
 export interface Suppliers {
+  id: number;
   name: string;
   address: string;
   suppliers: string;
@@ -106,9 +107,9 @@ const AllSuppliersTable = ({ searchQuery }: { searchQuery: string }) => {
     enableColumnResizing: true,
     columnResizeMode: 'onChange',
     getCoreRowModel: getCoreRowModel(),
-    debugTable: true,
-    debugHeaders: true,
-    debugColumns: true,
+    debugTable: false,
+    debugHeaders: false,
+    debugColumns: false,
   });
 
   const getClassByStatus = (status: string) => {

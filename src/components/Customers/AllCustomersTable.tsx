@@ -9,6 +9,7 @@ import css from './AllCustomersTable.module.css';
 import { useEffect, useState } from 'react';
 
 import { useGetCustomersQuery } from '../../redux/customersApi';
+import Loader from '../Loader/Loader';
 
 export interface Person {
   name: string;
@@ -20,7 +21,7 @@ export interface Person {
 }
 
 const AllCustomersTable = ({ searchQuery }: { searchQuery: string }) => {
-  const { data } = useGetCustomersQuery();
+  const { data, isLoading } = useGetCustomersQuery();
 
   const columns: ColumnDef<Person>[] = [
     {
@@ -85,9 +86,9 @@ const AllCustomersTable = ({ searchQuery }: { searchQuery: string }) => {
     enableColumnResizing: true,
     columnResizeMode: 'onChange',
     getCoreRowModel: getCoreRowModel(),
-    debugTable: true,
-    debugHeaders: true,
-    debugColumns: true,
+    debugTable: false,
+    debugHeaders: false,
+    debugColumns: false,
   });
 
   return (
@@ -157,6 +158,7 @@ const AllCustomersTable = ({ searchQuery }: { searchQuery: string }) => {
           No results found for your search query.
         </div>
       )}
+      {isLoading && <Loader />}
     </>
   );
 };

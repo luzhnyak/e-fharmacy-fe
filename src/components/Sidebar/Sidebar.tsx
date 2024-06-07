@@ -1,7 +1,8 @@
-import { FC } from "react";
-import Icon from "../Icon";
-import css from "./Sidebar.module.css";
-import { NavLink } from "react-router-dom";
+import { FC } from 'react';
+import Icon from '../Icon';
+import css from './Sidebar.module.css';
+import { NavLink } from 'react-router-dom';
+import { authApi } from '../../redux/auth/authApi';
 
 interface IProps {
   onClose: () => void;
@@ -9,10 +10,14 @@ interface IProps {
 }
 
 const Sidebar: FC<IProps> = ({ onClose, isOpen }) => {
-  const handleLogOut = () => {};
+  const [logout] = authApi.useLazyLogoutQuery();
+
+  const handleLogOut = () => {
+    logout();
+  };
 
   return (
-    <div className={`${css.sidebar} ${isOpen ? "" : css.hideBackdrop}`}>
+    <div className={`${css.sidebar} ${isOpen ? '' : css.hideBackdrop}`}>
       <nav className={css.navigation}>
         <div onClick={onClose} className={css.icon}>
           <Icon name="close" width={32} height={32} />

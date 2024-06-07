@@ -38,6 +38,15 @@ export type Supplier = {
   status: string;
 };
 
+export type CreateSupplier = {
+  name: string;
+  address: string;
+  suppliers: string;
+  date: string;
+  amount: string;
+  status: string;
+};
+
 export type Customer = {
   id: number;
   photo: string;

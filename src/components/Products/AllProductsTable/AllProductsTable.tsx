@@ -15,6 +15,7 @@ import {
   useDeleteProductMutation,
   useGetProductsQuery,
 } from '../../../redux/productsApi';
+import Loader from '../../Loader/Loader';
 
 export interface Products {
   id: number;
@@ -26,7 +27,7 @@ export interface Products {
 }
 
 const AllProductsTable = ({ searchQuery }: { searchQuery: string }) => {
-  const { data } = useGetProductsQuery();
+  const { data, isLoading } = useGetProductsQuery();
 
   const columns: ColumnDef<Products>[] = [
     {
@@ -123,9 +124,9 @@ const AllProductsTable = ({ searchQuery }: { searchQuery: string }) => {
     enableColumnResizing: true,
     columnResizeMode: 'onChange',
     getCoreRowModel: getCoreRowModel(),
-    debugTable: true,
-    debugHeaders: true,
-    debugColumns: true,
+    debugTable: false,
+    debugHeaders: false,
+    debugColumns: false,
   });
 
   return (
@@ -206,6 +207,7 @@ const AllProductsTable = ({ searchQuery }: { searchQuery: string }) => {
           />
         </Modal>
       )}
+      {isLoading && <Loader />}
     </>
   );
 };

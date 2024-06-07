@@ -6,7 +6,7 @@
   bottom: 0;
   overflow: auto;
 
-  background-color: var(--secondary-color-black);
+  background-color: rgba(0, 0, 0, 0.2);
   z-index: 200;
 }
 

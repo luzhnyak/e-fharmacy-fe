@@ -29,7 +29,6 @@ const LoginForm = () => {
 
   const onSubmit = (data: LoginUser) => {
     loginUser(data);
-    console.log(data);
   };
 
   return (

@@ -1,24 +1,25 @@
-import { FC, useEffect, useRef, useState } from "react";
-import "react-calendar/dist/Calendar.css";
-import Calendar from "react-calendar";
-import Icon from "../../Icon";
-import { Controller, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import Dropdown from "../../DropdownStatus/Dropdown";
-import useCloseDropdown from "../../../services/closeDropdown";
-import css from "./AddNewSupplierModal.module.css";
+import { FC, useEffect, useRef, useState } from 'react';
+import 'react-calendar/dist/Calendar.css';
+import Calendar from 'react-calendar';
+import Icon from '../../Icon';
+import { Controller, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import Dropdown from '../../DropdownStatus/Dropdown';
+import useCloseDropdown from '../../../services/closeDropdown';
+import css from './AddNewSupplierModal.module.css';
+import { useCreateSupplierMutation } from '../../../redux/suppliersApi';
 
 interface AddModalProps {
   onClose: () => void;
 }
 
 interface IForms {
-  info: string;
+  name: string;
   address: string;
-  company: string;
+  suppliers: string;
   date: string;
-  ammount: number;
+  amount: string;
   status: string;
 }
 
@@ -28,18 +29,20 @@ type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 const AddNewSupplierModal: FC<AddModalProps> = ({ onClose }) => {
   const [isOpenDropdown, setOpenDropdown] = useState(false);
-  const [selectedStatus, setSelectedStatus] = useState("");
+  const [selectedStatus, setSelectedStatus] = useState('');
   const [isOpenCalendar, setOpenCalendar] = useState(false);
+
+  const [createSupplier] = useCreateSupplierMutation();
 
   const [value, onChange] = useState<Value>(null);
 
   const myDate = value?.toString();
-  const dateArray = myDate?.split(" ").slice(1, 4);
+  const dateArray = myDate?.split(' ').slice(1, 4);
   const formattedDateArray = dateArray && [
     `${dateArray[0]} ${dateArray[1]}`,
     dateArray[2],
   ];
-  const selectedDate = formattedDateArray?.join(", ");
+  const selectedDate = formattedDateArray?.join(', ');
 
   const iconref = useRef<HTMLDivElement | null>(null);
   const iconDateref = useRef<HTMLDivElement | null>(null);
@@ -47,15 +50,15 @@ const AddNewSupplierModal: FC<AddModalProps> = ({ onClose }) => {
 
   const schema = yup
     .object({
-      info: yup.string().required("Suppliers Info is required"),
-      address: yup.string().required("Address is required"),
-      company: yup.string().required("Company is required"),
-      date: yup.string().required("Date is required"),
-      ammount: yup
-        .number()
-        .typeError("Ammount is required and must be a number")
+      name: yup.string().required('Suppliers Info is required'),
+      address: yup.string().required('Address is required'),
+      suppliers: yup.string().required('Company is required'),
+      date: yup.string().required('Date is required'),
+      amount: yup
+        .string()
+        .typeError('Ammount is required and must be a number')
         .required(),
-      status: yup.string().required("Status is required"),
+      status: yup.string().required('Status is required'),
     })
     .required();
 
@@ -70,7 +73,7 @@ const AddNewSupplierModal: FC<AddModalProps> = ({ onClose }) => {
   });
 
   const onSubmit = (data: IForms) => {
-    console.log(data);
+    createSupplier(data);
 
     onClose();
   };
@@ -81,8 +84,8 @@ const AddNewSupplierModal: FC<AddModalProps> = ({ onClose }) => {
   };
 
   useEffect(() => {
-    setValue("status", selectedStatus);
-    selectedDate && setValue("date", selectedDate);
+    setValue('status', selectedStatus);
+    selectedDate && setValue('date', selectedDate);
   }, [selectedStatus, selectedDate, setValue]);
 
   useCloseDropdown(setOpenCalendar, calendarRef, iconDateref);
@@ -93,16 +96,16 @@ const AddNewSupplierModal: FC<AddModalProps> = ({ onClose }) => {
         <div className={css.wrap}>
           <div>
             <input
-              {...register("info")}
+              {...register('name')}
               className={css.input}
               placeholder="Suppliers Info"
             />
-            <p className={css.errormessage}>{errors.info?.message}</p>
+            <p className={css.errormessage}>{errors.name?.message}</p>
           </div>
 
           <div>
             <input
-              {...register("address")}
+              {...register('address')}
               className={css.input}
               placeholder="Address"
             />
@@ -111,11 +114,11 @@ const AddNewSupplierModal: FC<AddModalProps> = ({ onClose }) => {
 
           <div>
             <input
-              {...register("company")}
+              {...register('suppliers')}
               className={css.input}
               placeholder="Company"
             />
-            <p className={css.errormessage}>{errors.company?.message}</p>
+            <p className={css.errormessage}>{errors.suppliers?.message}</p>
           </div>
 
           <div className={css.inputWrap}>
@@ -143,7 +146,7 @@ const AddNewSupplierModal: FC<AddModalProps> = ({ onClose }) => {
             {isOpenCalendar && (
               <div ref={calendarRef}>
                 <Calendar
-                  onChange={(date) => {
+                  onChange={date => {
                     onChange(date);
 
                     setOpenCalendar(false);
@@ -157,7 +160,7 @@ const AddNewSupplierModal: FC<AddModalProps> = ({ onClose }) => {
                   )}
                   formatShortWeekday={(locale, date) =>
                     date
-                      .toLocaleDateString(locale, { weekday: "short" })
+                      .toLocaleDateString(locale, { weekday: 'short' })
                       .substring(0, 2)
                   }
                 />
@@ -167,11 +170,11 @@ const AddNewSupplierModal: FC<AddModalProps> = ({ onClose }) => {
 
           <div>
             <input
-              {...register("ammount")}
+              {...register('amount')}
               className={css.input}
               placeholder="Ammount"
             />
-            <p className={css.errormessage}>{errors.ammount?.message}</p>
+            <p className={css.errormessage}>{errors.amount?.message}</p>
           </div>
 
           <div className={css.inputWrap}>
@@ -184,7 +187,7 @@ const AddNewSupplierModal: FC<AddModalProps> = ({ onClose }) => {
                   className={css.input}
                   placeholder="Status"
                   value={selectedStatus}
-                  onChange={(e) => setSelectedStatus(e.target.value)}
+                  onChange={e => setSelectedStatus(e.target.value)}
                 />
               )}
             />

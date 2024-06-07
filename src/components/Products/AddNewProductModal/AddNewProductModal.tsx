@@ -52,7 +52,6 @@ const AddNewProductModal: FC<AddModalProps> = ({ onClose }) => {
 
   const onSubmit = (data: IForms) => {
     createProduct(data);
-    console.log(data);
     reset();
     onClose();
   };
