@@ -7,7 +7,7 @@ import {
 import css from './AllOrdersTable.module.css';
 import { useEffect, useState } from 'react';
 
-import { useGetOrdersQuery } from '../../redux/dashboard/ordersApi';
+import { useGetOrdersQuery } from '../../redux/ordersApi';
 
 interface Person {
   name: string;

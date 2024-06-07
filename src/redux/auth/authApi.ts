@@ -1,7 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 
 import { baseQueryWithReauth } from '../common/baseQueryWithReauth';
-import { productsApi } from '../products/productsApi';
+import { productsApi } from '../productsApi';
 
 import { resetAuthData, saveAuthData } from './authSlice';
 import { User, LoginUser } from '../../types';

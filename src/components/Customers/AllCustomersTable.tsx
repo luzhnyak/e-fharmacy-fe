@@ -8,7 +8,7 @@ import css from './AllCustomersTable.module.css';
 
 import { useEffect, useState } from 'react';
 
-import { useGetCustomersQuery } from '../../redux/dashboard/customersApi';
+import { useGetCustomersQuery } from '../../redux/customersApi';
 
 export interface Person {
   name: string;

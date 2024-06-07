@@ -10,7 +10,7 @@ import Icon from '../../Icon';
 import Modal from '../../Modal/Modal';
 import EditModal from '../../EditModaSupplier/EditModal';
 
-import { useGetSuppliersQuery } from '../../../redux/dashboard/suppliersApi';
+import { useGetSuppliersQuery } from '../../../redux/suppliersApi';
 
 export interface Suppliers {
   name: string;

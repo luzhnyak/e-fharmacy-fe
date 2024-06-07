@@ -6,7 +6,7 @@ import {
 } from '@tanstack/react-table';
 import css from './RecentCustomers.module.css';
 
-import { useGetCustomersQuery } from '../../../redux/dashboard/customersApi';
+import { useGetCustomersQuery } from '../../../redux/customersApi';
 
 interface Person {
   name: string;

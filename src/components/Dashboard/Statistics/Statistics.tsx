@@ -1,9 +1,9 @@
 import Icon from '../../Icon';
 import css from './Statistics.module.css';
 
-import { useGetProductsQuery } from '../../../redux/products/productsApi';
-import { useGetSuppliersQuery } from '../../../redux/dashboard/suppliersApi';
-import { useGetCustomersQuery } from '../../../redux/dashboard/customersApi';
+import { useGetProductsQuery } from '../../../redux/productsApi';
+import { useGetSuppliersQuery } from '../../../redux/suppliersApi';
+import { useGetCustomersQuery } from '../../../redux/customersApi';
 
 const Statistics = () => {
   const { data: products } = useGetProductsQuery();

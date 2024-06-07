@@ -1,7 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { ApiResponse, IncomeExpense } from '../../types';
+import { ApiResponse, IncomeExpense } from '../types';
 
-import { baseQueryWithReauth } from '../common/baseQueryWithReauth';
+import { baseQueryWithReauth } from './common/baseQueryWithReauth';
 
 export const incomeExpensesApi = createApi({
   reducerPath: 'incomeExpensesApi',

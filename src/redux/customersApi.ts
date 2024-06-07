@@ -1,7 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { ApiResponse, Customer } from '../../types';
+import { ApiResponse, Customer } from '../types';
 
-import { baseQueryWithReauth } from '../common/baseQueryWithReauth';
+import { baseQueryWithReauth } from './common/baseQueryWithReauth';
 
 export const customersApi = createApi({
   reducerPath: 'customersApi',

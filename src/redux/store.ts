@@ -14,11 +14,11 @@ import storage from 'redux-persist/lib/storage';
 import { authApi } from './auth/authApi';
 import { authReducer } from './auth/authSlice';
 
-import { productsApi } from './products/productsApi';
-import { customersApi } from './dashboard/customersApi';
-import { suppliersApi } from './dashboard/suppliersApi';
-import { ordersApi } from './dashboard/ordersApi';
-import { incomeExpensesApi } from './dashboard/incomeExpensesApi';
+import { productsApi } from './productsApi';
+import { customersApi } from './customersApi';
+import { suppliersApi } from './suppliersApi';
+import { ordersApi } from './ordersApi';
+import { incomeExpensesApi } from './incomeExpensesApi';
 
 const authPersistConfig = {
   key: 'auth',

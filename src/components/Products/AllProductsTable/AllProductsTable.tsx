@@ -14,7 +14,7 @@ import DeleteModal from '../../DeleteModal/DeleteModal';
 import {
   useDeleteProductMutation,
   useGetProductsQuery,
-} from '../../../redux/products/productsApi';
+} from '../../../redux/productsApi';
 
 export interface Products {
   id: number;

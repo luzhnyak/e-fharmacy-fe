@@ -6,7 +6,7 @@ import {
 } from '@tanstack/react-table';
 import css from './IncomeExpenses.module.css';
 
-import { useGetIncomeExpensesQuery } from '../../../redux/dashboard/incomeExpensesApi';
+import { useGetIncomeExpensesQuery } from '../../../redux/incomeExpensesApi';
 
 interface Person {
   type: string;

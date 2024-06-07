@@ -3,14 +3,17 @@ import css from './Header.module.css';
 import LogoAuthImage from '../../img/logoAuth.png';
 import Icon from '../Icon';
 import { FC } from 'react';
+import { authApi } from '../../redux/auth/authApi';
 
 interface IProps {
   onOpen: (value: boolean) => void;
 }
 
 const Header: FC<IProps> = ({ onOpen }) => {
+  const [logout] = authApi.useLazyLogoutQuery();
+
   const handleLogOut = () => {
-    // dispatch(logOutThunk() as any);
+    logout();
   };
 
   const location = useLocation();
