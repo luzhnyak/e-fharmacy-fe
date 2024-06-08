@@ -1,6 +1,3 @@
-@import-normalize;
-/* bring in normalize.css styles */
-
 :root {
   --primary-color-white: rgb(251, 251, 251);
   --primary-color-black: rgb(17, 16, 28);

@@ -166,5 +166,5 @@ export interface ISliceNotify {
   mutationsExecuted: IMutationExecuted[] | [];
   queriesRejected: IQueryRejected[] | [];
   message: string | null;
-  type: typeMsg | null;
+  type: typeMsg | string | null;
 }
