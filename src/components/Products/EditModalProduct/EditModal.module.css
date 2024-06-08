@@ -87,7 +87,7 @@
   font-size: 14px;
   font-weight: 500;
   line-height: 1.29;
-
+  border: 1px solid transparent;
   padding: 13px;
 
   transition: background-color 0.3s;
@@ -125,8 +125,8 @@
 }
 
 /* For WebKit browsers */
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }

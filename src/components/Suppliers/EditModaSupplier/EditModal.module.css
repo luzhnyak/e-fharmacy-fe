@@ -83,6 +83,10 @@
   text-align: center;
 }
 
+.buttonSave:hover {
+  background-color: rgb(63, 148, 95);
+}
+
 .buttonCancel {
   display: block;
   width: 100%;
@@ -138,8 +142,8 @@
 }
 
 /* For WebKit browsers */
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }

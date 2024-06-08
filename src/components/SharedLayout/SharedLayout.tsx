@@ -10,9 +10,12 @@ import ScrollToTopButton from '../ScrollToTopButton/ScrollToTopButton';
 import Sidebar from '../Sidebar/Sidebar';
 
 import css from './SharedLayout.module.css';
+import { useTypeSelector } from '../../hooks/reduxHooks';
+import { selectNotify } from '../../redux/notifySlice';
 
 export const SharedLayout = () => {
   const [isOpenMenu, setOpenMenu] = useState(false);
+  const { isLoading } = useTypeSelector(selectNotify);
 
   return (
     <div>
@@ -40,6 +43,7 @@ export const SharedLayout = () => {
           <Outlet />
         </Suspense>
       </main>
+      {isLoading && <Loader />}
     </div>
   );
 };

@@ -46,7 +46,7 @@
   line-height: 1.29;
 
   padding: 13px;
-
+  border: 1px solid transparent;
   transition: background-color 0.3s;
   cursor: pointer;
   text-align: center;

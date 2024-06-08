@@ -7,6 +7,7 @@ import * as yup from 'yup';
 import Icon from '../../Icon';
 import Dropdown from '../../Dropdown/Dropdown';
 import { useUpdateProductMutation } from '../../../redux/productsApi';
+// import Loader from '../../Loader/Loader';
 
 interface EditModalProps {
   data: Products;
@@ -17,7 +18,7 @@ interface IForms {
   name: string;
   category: string;
   suppliers: string;
-  stock: string;
+  stock: number;
   price: number;
 }
 
@@ -34,7 +35,7 @@ const EditModal: FC<EditModalProps> = ({ data, onClose }) => {
       name: yup.string().required('Product info is required'),
       category: yup.string().required('Category is required'),
       suppliers: yup.string().required('Suppliers is required'),
-      stock: yup.string().required('Stock is required'),
+      stock: yup.number().required('Stock is required'),
       price: yup
         .number()
         .typeError('Price is required and must be a number')
@@ -54,13 +55,13 @@ const EditModal: FC<EditModalProps> = ({ data, onClose }) => {
       name: data.name,
       category: data.category,
       suppliers: data.suppliers,
-      stock: data.stock,
+      stock: +data.stock,
       price: +data.price,
     },
   });
 
-  const onSubmit = (data: IForms) => {
-    updateProduct({ id, data });
+  const onSubmit = async (data: IForms) => {
+    await updateProduct({ id, data });
 
     onClose();
   };
@@ -124,6 +125,7 @@ const EditModal: FC<EditModalProps> = ({ data, onClose }) => {
               {...register('suppliers')}
               className={css.input}
               placeholder="Suppliers"
+              type="string"
             />
             <p className={css.errormessage}>{errors.suppliers?.message}</p>
           </div>
@@ -133,6 +135,7 @@ const EditModal: FC<EditModalProps> = ({ data, onClose }) => {
               {...register('stock')}
               className={css.input}
               placeholder="Stock"
+              type="number"
             />
             <p className={css.errormessage}>{errors.stock?.message}</p>
           </div>
@@ -146,6 +149,7 @@ const EditModal: FC<EditModalProps> = ({ data, onClose }) => {
                   {...field}
                   className={css.input}
                   placeholder="Price"
+                  type="number"
                   onChange={e => {
                     const value = e.target.value.replace(',', '.');
                     field.onChange(value);

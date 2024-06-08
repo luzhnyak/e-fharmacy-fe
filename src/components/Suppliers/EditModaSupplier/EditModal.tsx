@@ -89,8 +89,8 @@ const EditModal: FC<EditModalProps> = ({ data, onClose }) => {
     },
   });
 
-  const onSubmit = (data: IForms) => {
-    updateSupplier({ id, data });
+  const onSubmit = async (data: IForms) => {
+    await updateSupplier({ id, data });
 
     onClose();
   };

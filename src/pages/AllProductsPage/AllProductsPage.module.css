@@ -16,3 +16,9 @@
     /* max-width: 1440px; */
   }
 }
+
+.wrapperFilterAndBtn {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}

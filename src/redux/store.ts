@@ -13,12 +13,13 @@ import storage from 'redux-persist/lib/storage';
 
 import { authApi } from './auth/authApi';
 import { authReducer } from './auth/authSlice';
-
 import { productsApi } from './productsApi';
 import { customersApi } from './customersApi';
 import { suppliersApi } from './suppliersApi';
 import { ordersApi } from './ordersApi';
 import { incomeExpensesApi } from './incomeExpensesApi';
+import { notifySliceReducer } from './notifySlice';
+import { rtkNotifyMiddleWare } from './common/rtkNotifyMiddleWare';
 
 const authPersistConfig = {
   key: 'auth',
@@ -30,13 +31,13 @@ const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
 
 export const store = configureStore({
   reducer: {
+    notify: notifySliceReducer,
     [authApi.reducerPath]: authApi.reducer,
     [productsApi.reducerPath]: productsApi.reducer,
     [customersApi.reducerPath]: customersApi.reducer,
     [suppliersApi.reducerPath]: suppliersApi.reducer,
     [ordersApi.reducerPath]: ordersApi.reducer,
     [incomeExpensesApi.reducerPath]: incomeExpensesApi.reducer,
-
     auth: persistedAuthReducer,
   },
   middleware: gDM =>
@@ -50,7 +51,8 @@ export const store = configureStore({
       suppliersApi.middleware,
       ordersApi.middleware,
       incomeExpensesApi.middleware,
-      authApi.middleware
+      authApi.middleware,
+      rtkNotifyMiddleWare
     ),
 });
 

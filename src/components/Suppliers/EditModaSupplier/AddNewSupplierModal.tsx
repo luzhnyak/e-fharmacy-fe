@@ -7,7 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import Dropdown from '../../DropdownStatus/Dropdown';
 import useCloseDropdown from '../../../services/closeDropdown';
-import css from './AddNewSupplierModal.module.css';
+import css from './EditModal.module.css';
 import { useCreateSupplierMutation } from '../../../redux/suppliersApi';
 
 interface AddModalProps {
@@ -72,8 +72,8 @@ const AddNewSupplierModal: FC<AddModalProps> = ({ onClose }) => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: IForms) => {
-    createSupplier(data);
+  const onSubmit = async (data: IForms) => {
+    await createSupplier(data);
 
     onClose();
   };
@@ -211,7 +211,7 @@ const AddNewSupplierModal: FC<AddModalProps> = ({ onClose }) => {
         </div>
 
         <div className={css.buttonWrap}>
-          <button type="submit" className={css.buttonAdd}>
+          <button type="submit" className={css.buttonSave}>
             Add
           </button>
 

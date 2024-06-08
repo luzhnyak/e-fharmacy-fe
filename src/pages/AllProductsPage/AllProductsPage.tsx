@@ -9,8 +9,14 @@ const AllProductsPage = () => {
 
   return (
     <section className={css.container}>
-      <FilterForm setSearchQuery={setSearchQuery} placeholder="Product Name" />
-      <AddNewProduct />
+      <div className={css.wrapperFilterAndBtn}>
+        <FilterForm
+          setSearchQuery={setSearchQuery}
+          placeholder="Product Name"
+        />
+        <AddNewProduct />
+      </div>
+
       <AllProductsTable searchQuery={searchQuery} />
     </section>
   );

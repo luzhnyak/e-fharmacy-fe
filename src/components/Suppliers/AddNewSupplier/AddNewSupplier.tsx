@@ -1,7 +1,7 @@
-import css from "./AddNewSupplier.module.css";
-import { useState } from "react";
-import Modal from "../../Modal/Modal";
-import AddNewSupplierModal from "../AddNewSupplierModal/AddNewSupplierModal";
+import css from './AddNewSupplier.module.css';
+import { useState } from 'react';
+import Modal from '../../Modal/Modal';
+import AddNewSupplierModal from '../EditModaSupplier/AddNewSupplierModal';
 
 const AddNewSupplier = () => {
   const [isOpenModal, setOpenModal] = useState(false);

@@ -1,11 +1,11 @@
 import { FC, useEffect, useRef, useState } from 'react';
-import css from './AddNewProductModal.module.css';
+import css from './EditModal.module.css';
 import Icon from '../../Icon';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import Dropdown from '../../Dropdown/Dropdown';
-import { useCreateProductMutation } from '../../../redux/productsApi';
+import { productsApi } from '../../../redux/productsApi';
 
 interface AddModalProps {
   onClose: () => void;
@@ -15,14 +15,14 @@ interface IForms {
   name: string;
   category: string;
   suppliers: string;
-  stock: string;
+  stock: number;
   price: number;
 }
 
 const AddNewProductModal: FC<AddModalProps> = ({ onClose }) => {
   const [isOpenDropdown, setOpenDropdown] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState('');
-  const [createProduct] = useCreateProductMutation();
+  const [createProduct] = productsApi.useCreateProductMutation();
 
   const iconref = useRef<HTMLDivElement | null>(null);
 
@@ -31,7 +31,7 @@ const AddNewProductModal: FC<AddModalProps> = ({ onClose }) => {
       name: yup.string().required('Product info is required'),
       category: yup.string().required('Category is required'),
       suppliers: yup.string().required('Suppliers is required'),
-      stock: yup.string().required('Stock is required'),
+      stock: yup.number().required('Stock is required'),
       price: yup
         .number()
         .typeError('Price is required and must be a number')
@@ -50,8 +50,8 @@ const AddNewProductModal: FC<AddModalProps> = ({ onClose }) => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: IForms) => {
-    createProduct(data);
+  const onSubmit = async (data: IForms) => {
+    await createProduct(data);
     reset();
     onClose();
   };
@@ -123,6 +123,7 @@ const AddNewProductModal: FC<AddModalProps> = ({ onClose }) => {
               {...register('stock')}
               className={css.input}
               placeholder="Stock"
+              type="number"
             />
             <p className={css.errormessage}>{errors.stock?.message}</p>
           </div>

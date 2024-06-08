@@ -6,7 +6,7 @@ import css from './LoginForm.module.css';
 import Icon from '../Icon';
 import { authApi } from '../../redux/auth/authApi';
 import { LoginUser } from '../../types';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import Loader from '../Loader/Loader';
 
 const LoginForm = () => {
@@ -16,7 +16,6 @@ const LoginForm = () => {
   useEffect(() => {
     if (error) {
       toast.error('The password or login is incorrect');
-      console.log('The password or login is incorrect');
     }
   }, [error]);
 
@@ -76,11 +75,6 @@ const LoginForm = () => {
         </button>
       </form>
       {isLoading && <Loader />}
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={true}
-      />
     </>
   );
 };

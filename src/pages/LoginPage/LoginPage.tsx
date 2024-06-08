@@ -6,6 +6,7 @@ import ImagePill768_1x from '../../img/pill_768_@1x.png';
 import ImagePill768_2x from '../../img/pill_768_@2x.png';
 import css from './LoginPage.module.css';
 import LoginForm from '../../components/LoginForm/LoginForm';
+import { ToastContainer } from 'react-toastify';
 
 const LoginPage = () => {
   return (
@@ -39,6 +40,11 @@ const LoginPage = () => {
       <div className={css.backgroundContainer}>
         <div className={css.background}></div>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={true}
+      />
     </>
   );
 };
