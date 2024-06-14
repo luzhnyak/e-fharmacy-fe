@@ -33,6 +33,10 @@ const LoginForm = () => {
     formState: { errors },
   } = useForm<LoginUser>({
     resolver: yupResolver(schema),
+    defaultValues: {
+      email: 'admin@gmail.com',
+      password: 'admin',
+    },
   });
 
   const onSubmit = (data: LoginUser) => {

@@ -29,6 +29,7 @@ export const authApi = createApi({
       }),
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
         const { data } = await queryFulfilled;
+        console.log('data', data);
         dispatch(saveAuthData(data));
       },
     }),

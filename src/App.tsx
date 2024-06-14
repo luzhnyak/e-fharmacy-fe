@@ -1,13 +1,10 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { SharedLayout } from './components/SharedLayout/SharedLayout';
-import { lazy, useEffect } from 'react';
+import { lazy } from 'react';
 
 import { RestrictedRoute } from './pages/RestrictedRoute';
 import { PrivateRoute } from './pages/PrivateRoute';
 import LoginPage from './pages/LoginPage/LoginPage';
-// import { useDispatch } from 'react-redux';
-import { authApi } from './redux/auth/authApi';
-// import { refreshUserThunk } from "./redux/auth/operations";
 
 const AllProductsPage = lazy(
   () => import('./pages/AllProductsPage/AllProductsPage')
@@ -22,14 +19,6 @@ const CustomersDataPage = lazy(
 );
 
 function App() {
-  // const dispatch = useDispatch();
-
-  const [refreshUser] = authApi.useLazyRefreshUserQuery();
-
-  useEffect(() => {
-    refreshUser();
-  }, [refreshUser]);
-
   return (
     <>
       <Routes>
@@ -49,6 +38,7 @@ function App() {
           <Route path="products" element={<AllProductsPage />} />
           <Route path="suppliers" element={<AllSuppliersPage />} />
           <Route path="customers" element={<CustomersDataPage />} />
+          <Route path="*" element={<DasboardPage />} />
         </Route>
       </Routes>
     </>
